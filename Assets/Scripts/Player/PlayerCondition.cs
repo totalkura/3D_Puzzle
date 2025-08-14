@@ -10,11 +10,12 @@ using System;
 
 public class PlayerCondition : MonoBehaviour/*, IDamagable*/
 {
-    //public UICondition uiCondition;
+    public UICondition uiCondition;
 
-    //Condition health { get { return uiCondition.health; } }
+    Condition health { get { return uiCondition.health; } }
     //Condition hunger { get { return uiCondition.hunger; } }
     //Condition stamina { get { return uiCondition.stamina; } }
+
 
     public float noHungerHealthDecay;
     public event Action onTakeDamage;
@@ -51,9 +52,9 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
     //    Debug.Log("ав╬З╢ы!");
     //}
 
-    //public void TakePhysicalDamage(int damage)
-    //{
-    //    health.Subtract(damage);
-    //    onTakeDamage?.Invoke();
-    //}
+    public void TakePhysicalDamage(int damage)
+    {
+        health.Subtract(damage);
+        onTakeDamage?.Invoke();
+    }
 }
