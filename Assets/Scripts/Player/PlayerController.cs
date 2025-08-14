@@ -17,15 +17,14 @@ public class PlayerController : MonoBehaviour
     public Transform cameraContainer;
     public float minXLook;
     public float maxXLook;
-    private float camCurXRot; //인풋엑션에서 받아오는 마우스의 델타값
+    private float camCurXRot = 0; //인풋엑션에서 받아오는 마우스의 델타값
     public float lookSensitivity; // 민감도
     private Vector2 mouseDelta; //여기 델타값을 넣어줌
     public bool canLook = true;
 
     public Action inventory;
     private Rigidbody _rigidbody;
-
-    private float logTimer;
+    Camera _camera;
 
     private void Awake()
     {
@@ -38,17 +37,28 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
+    void Update()
+    {
+        // Main Camera 컴포넌트를 가져옵니다.
+       _camera = Camera.main;
 
+        // 스크린상의 마우스 위치에서 Ray를 만듭니다.
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+        float rayDistance = 100f;
+
+        // Scene 뷰에 레이저를 그립니다 (디버깅용)
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.blue);
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, rayDistance))
+        {
+            Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
+        }
+    }
     // Update is called once per frame
     void FixedUpdate() // 리지드바디나 물리연산은 픽스드업데이트
     {
         move();
-        logTimer += Time.deltaTime;
-        if (logTimer >= 1.0f)
-        {
-            Debug.Log("Is Grounded: " + isGrounded());
-            logTimer = 0.0f;
-        }
     }
 
     private void LateUpdate()
@@ -80,6 +90,19 @@ public class PlayerController : MonoBehaviour
             curMovementInput = Vector2.zero;
         }
     }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            curMovementInput = context.ReadValue<Vector2>();
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            curMovementInput = Vector2.zero;
+        }
+    }
+
 
     void CameraLook()
     {
@@ -116,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask)) //길이는 0.1정도. 그라운드레이어마스크에 해당하는것만 검출
+            if (Physics.Raycast(rays[i], 0.7f, groundLayerMask)) //길이는 0.1정도. 그라운드레이어마스크에 해당하는것만 검출
             {
                 return true;
             }
