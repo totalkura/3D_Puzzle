@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     public float walkSpeed;
-    public float runSpeed;
+    public float dashSpeed;
     public float curMoveSpeed;
     public float jumpPower;
     private Vector2 curMovementInput;
@@ -99,7 +97,7 @@ public class PlayerController : MonoBehaviour
         // Shift 키를 누르고 있는 동안(Performed)
         if (context.phase == InputActionPhase.Performed)
         {
-            curMoveSpeed = runSpeed; // 이동 속도를 달리기 속도로 변경
+            curMoveSpeed = dashSpeed; // 이동 속도를 달리기 속도로 변경
         }
         // Shift 키에서 손을 떼는 순간(Canceled)
         else if (context.phase == InputActionPhase.Canceled)
