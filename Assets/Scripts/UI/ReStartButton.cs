@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ReStartButton : MonoBehaviour
 {
-    public void ReButton()
+    public void OnClickReStartButton()
     {
-        SceneManager.LoadScene("미정");
+        Debug.Log("ReStartButton Clicked");
+        SceneManager.LoadScene("플레이어가 있는 위치로 지정한 값");
     }
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class StartButton : MonoBehaviour
+public class ExitButton : MonoBehaviour
 {
-    public void ReButton() 
-    { 
-       SceneManager.LoadScene("MainScene");
+    public void OnClickExitButton() 
+    {
+            Debug.Log("ExitButton Clicked");
+            SceneManager.LoadScene("MainScene");
     }
 }
