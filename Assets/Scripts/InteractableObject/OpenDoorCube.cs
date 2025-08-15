@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class OpenDoorCube : MonoBehaviour, IInteractable
 {
+    Door door;
     public string GetPrompt()
     {
         return "잘하면 문을 열 수 있을지도?";
@@ -11,7 +13,8 @@ public class OpenDoorCube : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        door = GetComponentInParent<Door>();
+        door.DoorOpen();
     }
 
 }

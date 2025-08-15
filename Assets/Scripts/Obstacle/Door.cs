@@ -16,4 +16,13 @@ public class Door : MonoBehaviour
             animator.SetBool("character_nearby", true);
     }
 
+    //public void Interact()
+    //{
+       
+    //}
+
+    //public string GetPrompt()
+    //{
+      
+    //}
 }
