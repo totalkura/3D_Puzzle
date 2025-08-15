@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
+    public float canJumpRay;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -142,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.7f, groundLayerMask)) //길이는 0.1정도. 그라운드레이어마스크에 해당하는것만 검출
+            if (Physics.Raycast(rays[i], canJumpRay, groundLayerMask)) //그라운드레이어마스크에 해당하는것만 검출
             {
                 return true;
             }

@@ -6738,7 +6738,7 @@ Transform:
   m_GameObject: {fileID: 902588903}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14317,7 +14317,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.85, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 902588904}
@@ -14336,12 +14336,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
-  runSpeed: 7
+  dashSpeed: 10
   curMoveSpeed: 0
-  jumpPower: 400
+  jumpPower: 500
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 55
+  canJumpRay: 0
   cameraContainer: {fileID: 902588904}
   minXLook: -85
   maxXLook: 85
@@ -14373,6 +14374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb61335e1c20b5d4294846f8c02b05da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCondition: {fileID: 0}
   noHungerHealthDecay: 0
 --- !u!114 &1813313721
 MonoBehaviour:
@@ -14471,6 +14473,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 107c00ca-7943-43f1-8564-e931de1d31ba
     m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 435abcce-800e-4065-af6c-fbc81d1a021c
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
