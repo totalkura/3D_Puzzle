@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
 {
 
     [Header("Movement")]
-    public float walkSpeed;
-    public float dashSpeed;
+    public float walkSpeed; //3
+    public float dashSpeed; //10
     public float curMoveSpeed;
-    public float jumpPower;
+    public float jumpPower; //500
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
-    public float canJumpRay;
+    public float canJumpRay;//1.5
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     public Action inventory;
     private Rigidbody _rigidbody;
-    Camera _camera;
+    //Camera _camera;
 
     private void Awake()
     {
@@ -41,28 +41,28 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        // Main Camera 컴포넌트를 가져옵니다.
-       _camera = Camera.main;
+       // // Main Camera 컴포넌트를 가져옵니다.
+       //_camera = Camera.main;
 
-        // 스크린상의 마우스 위치에서 Ray를 만듭니다.
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        float rayDistance = 100f;
+       // // 스크린상의 마우스 위치에서 Ray를 만듭니다.
+       // Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+       // float rayDistance = 100f;
 
-        // Scene 뷰에 레이저를 그립니다 (디버깅용)
-        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.blue);
+       // // Scene 뷰에 레이저를 그립니다 (디버깅용)
+       // Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.blue);
 
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, rayDistance))
-        {
-            if (hit.collider.gameObject.name == "DoorComputer") 
-            {
-                Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
-                //MapManager.Instance.GetDoor(hit.collider.gameObject);
-            }
+       // RaycastHit hit;
+       // if (Physics.Raycast(ray, out hit, rayDistance))
+       // {
+       //     if (hit.collider.gameObject.name == "DoorComputer") 
+       //     {
+       //         Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
+       //         //MapManager.Instance.GetDoor(hit.collider.gameObject);
+       //     }
 
 
-           // Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
-        }
+       //    // Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
+       // }
     }
     // Update is called once per frame
     void FixedUpdate() // 리지드바디나 물리연산은 픽스드업데이트
@@ -158,16 +158,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    public void OnInventory(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            inventory?.Invoke();
-            ToggleCursor();
-        }
-    }
-
-    void ToggleCursor()
+    void ToggleCursor() //일시정지
     {
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
