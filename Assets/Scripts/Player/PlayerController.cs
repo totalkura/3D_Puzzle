@@ -53,7 +53,14 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance))
         {
-            Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
+            if (hit.collider.gameObject.name == "DoorComputer") 
+            {
+                Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
+                //MapManager.Instance.GetDoor(hit.collider.gameObject);
+            }
+
+
+           // Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
         }
     }
     // Update is called once per frame
