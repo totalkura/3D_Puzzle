@@ -12,6 +12,7 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
 {
     public UICondition uiCondition;
 
+
     Condition health { get { return uiCondition.health; } }
     //Condition hunger { get { return uiCondition.hunger; } }
     //Condition stamina { get { return uiCondition.stamina; } }
@@ -22,6 +23,7 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
 
     void Update()
     {
+        
         //hunger.Subtract(hunger.passiveValue * Time.deltaTime);
         //stamina.Add(stamina.passiveValue * Time.deltaTime);
 

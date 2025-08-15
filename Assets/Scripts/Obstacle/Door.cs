@@ -3,15 +3,17 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     private Animator animator;
+    public int doorNum;
 
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     public void DoorOpen()
     {
-        animator.SetBool("character_nearby", true);
+        if(doorNum == MapManager.Instance.doorNumCheck)
+            animator.SetBool("character_nearby", true);
     }
 
 }
