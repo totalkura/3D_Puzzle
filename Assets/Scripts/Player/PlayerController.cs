@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity; // ¹Î°¨µµ
     private Vector2 mouseDelta; //¿©±â µ¨Å¸°ªÀ» ³Ö¾îÁÜ
     public bool canLook = true;
+    public bool characterGetItem;
 
     public Action inventory;
     private Rigidbody _rigidbody;
@@ -163,5 +164,13 @@ public class PlayerController : MonoBehaviour
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
+    }
+
+    public void DropItem()
+    {
+        if (characterGetItem)
+        {
+            
+        }
     }
 }

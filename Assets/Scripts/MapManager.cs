@@ -6,8 +6,6 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     private static MapManager instance;
-    public Door door;
-    public int doorNumCheck;
 
     public static MapManager Instance
     {
@@ -26,10 +24,5 @@ public class MapManager : MonoBehaviour
         
     }
 
-    public void GetDoor(GameObject doorObject)
-    {
-        door = doorObject.GetComponentInChildren<Door>();
-        doorNumCheck = door.doorNum;
-    }
 
 }

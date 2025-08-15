@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +10,8 @@ public class Interaction : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject curInteractGameObject;
+    public GameObject[] itemDatas;
+
     private IInteractable curInteractable; //원래 아이템이었지만, 지금은 문열기, 큐브들기, +@ 
 
     public TextMeshProUGUI promptText;

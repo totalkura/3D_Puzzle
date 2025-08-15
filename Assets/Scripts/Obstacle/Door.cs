@@ -1,28 +1,28 @@
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour,IInteractable
 {
-    private Animator animator;
-    public int doorNum;
-
+    public Animator animator;
+    
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void DoorOpen()
     {
-        if(doorNum == MapManager.Instance.doorNumCheck)
-            animator.SetBool("character_nearby", true);
+        animator.SetBool("character_nearby", true);
     }
 
-    //public void Interact()
-    //{
-       
-    //}
+    public string GetPrompt()
+    {
+        return "문을 열수 있을 것 같다";
+    }
 
-    //public string GetPrompt()
-    //{
-      
-    //}
+    public void Interact()
+    {
+        DoorOpen();
+    }
+
+
 }
