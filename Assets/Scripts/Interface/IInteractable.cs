@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IInteractable
 {
     void Interact(); //상호작용시 발생할 행동 예를들어 SetBool(True)
