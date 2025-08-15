@@ -15422,12 +15422,14 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 55
-  canJumpRay: 0
+  canJumpRay: 1.5
+  isMove: 0
   cameraContainer: {fileID: 902588904}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.2
   canLook: 1
+  characterGetItem: 0
 --- !u!114 &1813313719
 MonoBehaviour:
   m_ObjectHideFlags: 0

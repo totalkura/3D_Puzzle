@@ -15,6 +15,7 @@ public class OpenDoorCube : MonoBehaviour, IInteractable
     {
         door = GetComponentInParent<Door>();
         door.DoorOpen();
+        //문에대한정보
     }
 
 }

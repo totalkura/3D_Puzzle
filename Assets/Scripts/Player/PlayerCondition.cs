@@ -20,14 +20,8 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
 
     void Update()
     {
-
-        health.Subtract(health.passiveValue * Time.deltaTime);
-
-        if (health.curValue == 0f)
-        {
-            Die();
-        }
-
+      stamina.Add(stamina.passiveValue * Time.deltaTime);
+        Debug.Log(stamina.curValue);
     }
 
     public void Die()
@@ -38,5 +32,25 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
     {
         health.Subtract(damage);
         onTakeDamage?.Invoke();
+    }
+
+    public bool HasStamina(float staminaValue)
+    {
+        if (stamina.curValue - staminaValue < 0)
+        {
+            return false;
+        }
+        if(CharacterManager.Instance.Player.controller.isMove)stamina.Subtract(staminaValue);
+        return true;
+    }
+
+    public bool HasStaminaForJump(float staminaValue)
+    {
+        if (stamina.curValue - staminaValue < 0)
+        {
+            return false;
+        }
+        stamina.Subtract(staminaValue);
+        return true;
     }
 }

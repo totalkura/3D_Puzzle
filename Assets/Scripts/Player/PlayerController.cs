@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
     public float canJumpRay;//1.5
+    public bool isMove;
+    private bool isDash = false;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -32,40 +35,14 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         curMoveSpeed = walkSpeed;
+        
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
-    void Update()
-    {
-       // // Main Camera 컴포넌트를 가져옵니다.
-       //_camera = Camera.main;
 
-       // // 스크린상의 마우스 위치에서 Ray를 만듭니다.
-       // Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-       // float rayDistance = 100f;
-
-       // // Scene 뷰에 레이저를 그립니다 (디버깅용)
-       // Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.blue);
-
-       // RaycastHit hit;
-       // if (Physics.Raycast(ray, out hit, rayDistance))
-       // {
-       //     if (hit.collider.gameObject.name == "DoorComputer") 
-       //     {
-       //         Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
-       //         //MapManager.Instance.GetDoor(hit.collider.gameObject);
-       //     }
-
-
-       //    // Debug.Log("마우스 커서가 " + hit.collider.gameObject.name + "를 가리킵니다.");
-       // }
-    }
-    // Update is called once per frame
     void FixedUpdate() // 리지드바디나 물리연산은 픽스드업데이트
     {
         move();
@@ -82,7 +59,18 @@ public class PlayerController : MonoBehaviour
     void move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= curMoveSpeed;
+
+        //curMoveSpeed = (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime)) ? dashSpeed : walkSpeed;
+        if (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime))
+        {
+            curMoveSpeed = dashSpeed;
+        }
+        else
+        {
+            curMoveSpeed = walkSpeed;
+            isDash = false;
+        }
+            dir *= curMoveSpeed;
         dir.y = _rigidbody.velocity.y; //점프를했을때만
 
         _rigidbody.velocity = dir;
@@ -93,27 +81,44 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
+            isMove = true;
             curMovementInput = context.ReadValue<Vector2>();
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
+            isMove = false;
             curMovementInput = Vector2.zero;
         }
     }
 
+    //public void OnDash(InputAction.CallbackContext context)
+    //{
+    //    // Shift 키를 누르고 있는 동안(Performed)
+    //    if (context.phase == InputActionPhase.Performed)
+    //    {
+    //        //curMoveSpeed = dashSpeed; // 이동 속도를 달리기 속도로 변경
+    //        curMoveSpeed = dashSpeed;
+    //    }
+    //    // Shift 키에서 손을 떼는 순간(Canceled)
+    //    else if (context.phase == InputActionPhase.Canceled)
+    //    {
+    //        //curMoveSpeed = walkSpeed; // 이동 속도를 원래 속도로 되돌림
+    //        curMoveSpeed = walkSpeed;
+    //    }
+    //}
+
     public void OnDash(InputAction.CallbackContext context)
     {
-        // Shift 키를 누르고 있는 동안(Performed)
         if (context.phase == InputActionPhase.Performed)
         {
-            curMoveSpeed = dashSpeed; // 이동 속도를 달리기 속도로 변경
+            isDash = true; // 대쉬 시작
         }
-        // Shift 키에서 손을 떼는 순간(Canceled)
         else if (context.phase == InputActionPhase.Canceled)
         {
-            curMoveSpeed = walkSpeed; // 이동 속도를 원래 속도로 되돌림
+            isDash = false;
         }
     }
+
 
 
     void CameraLook()
@@ -132,8 +137,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && isGrounded())
-        {
+        if (context.phase == InputActionPhase.Started && isGrounded() && CharacterManager.Instance.Player.condition.HasStaminaForJump(20))
+        {    
             _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); //순간적으로힘을주는 임펄스
         }
 
