@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +6,9 @@ public class PlayerController : MonoBehaviour
 {
 
     [Header("Movement")]
-    public float moveSpeed;
+    public float walkSpeed;
+    public float dashSpeed;
+    public float curMoveSpeed;
     public float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraContainer;
     public float minXLook;
     public float maxXLook;
-    private float camCurXRot = 0; //인풋엑션에서 받아오는 마우스의 델타값
+    private float camCurXRot; //인풋엑션에서 받아오는 마우스의 델타값
     public float lookSensitivity; // 민감도
     private Vector2 mouseDelta; //여기 델타값을 넣어줌
     public bool canLook = true;
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        curMoveSpeed = walkSpeed;
     }
 
 
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
     void move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= moveSpeed;
+        dir *= curMoveSpeed;
         dir.y = _rigidbody.velocity.y; //점프를했을때만
 
         _rigidbody.velocity = dir;
@@ -93,13 +94,15 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
+        // Shift 키를 누르고 있는 동안(Performed)
         if (context.phase == InputActionPhase.Performed)
         {
-            curMovementInput = context.ReadValue<Vector2>();
+            curMoveSpeed = dashSpeed; // 이동 속도를 달리기 속도로 변경
         }
+        // Shift 키에서 손을 떼는 순간(Canceled)
         else if (context.phase == InputActionPhase.Canceled)
         {
-            curMovementInput = Vector2.zero;
+            curMoveSpeed = walkSpeed; // 이동 속도를 원래 속도로 되돌림
         }
     }
 
