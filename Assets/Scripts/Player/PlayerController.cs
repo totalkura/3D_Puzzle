@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
     public float canJumpRay;//1.5
     public bool isMove;
-    private bool isDash = false;
+    public bool isDash = false;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -59,8 +59,6 @@ public class PlayerController : MonoBehaviour
     void move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-
-        //curMoveSpeed = (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime)) ? dashSpeed : walkSpeed;
         if (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime))
         {
             curMoveSpeed = dashSpeed;
@@ -170,7 +168,15 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
     }
+    public void OnShootLeft(InputAction.CallbackContext context)
+    {
+        if (context.performed) GetComponent<PortalShooter>().ShootPortal(true);
+    }
 
+    public void OnShootRight(InputAction.CallbackContext context)
+    {
+        if (context.performed) GetComponent<PortalShooter>().ShootPortal(false);
+    }
     public void DropItem()
     {
         if (characterGetItem)
