@@ -21,7 +21,6 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
     void Update()
     {
       stamina.Add(stamina.passiveValue * Time.deltaTime);
-        //Debug.Log(stamina.curValue);
     }
 
     public void Die()
