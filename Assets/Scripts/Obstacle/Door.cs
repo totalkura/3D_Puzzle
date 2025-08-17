@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour,IInteractable
 {
-    private Animator animator;
+    public Animator animator;
+    public float doorTiem;
 
     void Start()
     {
@@ -12,6 +13,23 @@ public class Door : MonoBehaviour
     public void DoorOpen()
     {
         animator.SetBool("character_nearby", true);
+        if (doorTiem > 0)
+        {
+            Invoke("DoorClose", doorTiem);
+        }
+    }
+    public void DoorClose()
+    {
+        animator.SetBool("character_nearby", false);
+    }
+    public void Interact()
+    {
+        DoorOpen();
+    }
+
+    public string GetPrompt()
+    {
+        return "문을 열수 있을 것 같다";
     }
 
 }

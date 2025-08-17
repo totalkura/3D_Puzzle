@@ -153,7 +153,7 @@
                     "name": "",
                     "id": "13e09bbe-5135-46fd-b026-d1d1a33cab81",
                     "path": "<Keyboard>/leftShift",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
