@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +8,6 @@ public class ReStartButton : MonoBehaviour
     public void OnClickReStartButton()
     {
         Debug.Log("ReStartButton Clicked");
-        SceneManager.LoadScene("ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â À§Ä¡·Î ÁöÁ¤ÇÑ °ª");
+        SceneManager.LoadScene("í”Œë ˆì´ì–´ê°€ ìˆëŠ” ìœ„ì¹˜ë¡œ ì§€ì •í•œ ê°’");
     }
 }
