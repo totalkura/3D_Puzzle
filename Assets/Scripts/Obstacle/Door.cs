@@ -3,16 +3,23 @@ using UnityEngine;
 public class Door : MonoBehaviour,IInteractable
 {
     public Animator animator;
+    public GameObject gameObjects;
     public float doorTiem;
+
+    Material material;
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        if(gameObjects != null)
+            material = gameObjects.GetComponent<Renderer>().material;
     }
 
     public void DoorOpen()
     {
         animator.SetBool("character_nearby", true);
+        if(material != null)
+            material.color = Color.blue;
         if (doorTiem > 0)
         {
             Invoke("DoorClose", doorTiem);
@@ -20,6 +27,8 @@ public class Door : MonoBehaviour,IInteractable
     }
     public void DoorClose()
     {
+        if (material != null)
+            material.color = Color.red;
         animator.SetBool("character_nearby", false);
     }
     public void Interact()
