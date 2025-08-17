@@ -15973,8 +15973,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   curInteractGameObject: {fileID: 0}
-  itemDatas:
-  - {fileID: 2044790179}
+  itemDatas: []
   promptText: {fileID: 190991132}
 --- !u!1001 &1818962402
 PrefabInstance:
@@ -18379,11 +18378,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 413614, guid: e37a5396a520a8e4e8e48c74975b6a61, type: 3}
   m_PrefabInstance: {fileID: 2037593168}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2044790179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 198422, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
-  m_PrefabInstance: {fileID: 1720401231}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2046477486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18773,8 +18767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5271f86267f51b141aefec5c09885a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  check: 0
 --- !u!1001 &2096063403
 PrefabInstance:
   m_ObjectHideFlags: 0
