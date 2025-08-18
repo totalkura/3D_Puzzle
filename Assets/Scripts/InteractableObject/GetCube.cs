@@ -6,6 +6,7 @@ public class GetCube : MonoBehaviour, IInteractable
     private Rigidbody rb;
     private Vector3 originScale;
     private float rotationSpeed = 100f;
+    private float throwForce = 10f;
 
     void Start()
     {
@@ -14,25 +15,52 @@ public class GetCube : MonoBehaviour, IInteractable
     }
     void Update()
     {
-            // 큐브를 들고 있는 동안에만 회전
-            if (isHeld)
+        // 큐브를 들고 있는 동안에만 회전
+        if (isHeld)
+        {
+            // 현재 회전에 y축 회전값을 계속 더해줍니다.
+            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+            if (Input.GetMouseButtonDown(0))
             {
-                // 현재 회전에 y축 회전값을 계속 더해줍니다.
-                transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                ThrowObject();
             }
+        }
     }
 
     public string GetPrompt()
     {
         if (isHeld)
         {
-            return "F를 누르면 큐브를 놓습니다.";
+            return "F를 누르면 큐브를 놓습니다. 혹은 마우스클릭으로 던질수도있습니다.";
         }
         else
         {
             return "F를 누르면 큐브를 듭니다.";
         }
     }
+
+    private void ThrowObject()
+    {
+        if (!isHeld) return;
+        // 큐브의 부모 관계 해제
+        transform.SetParent(null);
+
+        if (rb != null)
+        {
+            rb.isKinematic = false; // 물리 활성화
+            rb.velocity = Vector3.zero; // 기존 속도 초기화
+            transform.rotation = Quaternion.identity;
+            rb.angularVelocity = Vector3.zero; // 회전 속도 초기화
+
+            // 큐브를 플레이어의 시선 방향으로 던집니다.
+            rb.AddForce(CharacterManager.Instance.Player.controller.cameraContainer.forward * throwForce, ForceMode.Impulse);
+        }
+
+        // 상태 초기화
+        transform.localScale = originScale;
+        isHeld = false;
+    }
+
     public void Interact()
     {
         if (!isHeld)
@@ -67,6 +95,7 @@ public class GetCube : MonoBehaviour, IInteractable
             // 큐브 놓기
             transform.SetParent(null);
             transform.localScale = originScale;
+            transform.localRotation = Quaternion.identity;
             if (rb != null)
             {
                 rb.isKinematic = false; // 물리 활성화
