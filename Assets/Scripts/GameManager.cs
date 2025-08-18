@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,9 +44,11 @@ public class GameManager : MonoBehaviour
         return userSelectStage = stage;
     }
 
-    //UI¸Å´ÏÀú¿¡¼­ °ü¸® ¾Æ·¡°Å
+    //UIë§¤ë‹ˆì €ì—ì„œ ê´€ë¦¬ ì•„ë˜ê±°
+    /*
     public void ResetData()
     {
         PlayerPrefs.DeleteAll();
     }
+    */
 }

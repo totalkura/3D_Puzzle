@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,21 +33,19 @@ public class MapManager : MonoBehaviour
         mapdata = new MapData();
         _player = Resources.Load<GameObject>("Prefabs/Player");
 
-        //ÇÃ·¹ÀÌ¾î ½ÃÀÛÀ§Ä¡
+        //í”Œë ˆì´ì–´ ì‹œì‘ìœ„ì¹˜
         //Instantiate(_player, Vector3.zero, Quaternion.identity);
         Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
         SceneManager.sceneLoaded += SceneChange;
 
     }
-<<<<<<< HEAD:Assets/Scripts/UI/MapManager/MapManager.cs
-=======
 
     private void SceneChange(Scene scene, LoadSceneMode sceneMode)
     {
         if (scene.name == "MainScene")
         {
-            //¾À ÀÌµ¿½Ã ÆÄ±«
+            //ì”¬ ì´ë™ì‹œ íŒŒê´´
             SceneManager.sceneLoaded -= SceneChange;
             Destroy(gameObject);
         }
@@ -58,5 +56,4 @@ public class MapManager : MonoBehaviour
         GameManager.Instance.userSelectStage = stageNum;
         SceneManager.LoadScene("InGameScene");
     }
->>>>>>> Dev:Assets/Scripts/MapManager.cs
 }
