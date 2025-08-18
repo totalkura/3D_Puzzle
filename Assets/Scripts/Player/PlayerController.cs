@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public Action inventory;
     private Rigidbody _rigidbody;
-    //Camera _camera;
+    public Transform holdPoint;
 
     private void Awake()
     {
@@ -89,22 +89,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void OnDash(InputAction.CallbackContext context)
-    //{
-    //    // Shift 키를 누르고 있는 동안(Performed)
-    //    if (context.phase == InputActionPhase.Performed)
-    //    {
-    //        //curMoveSpeed = dashSpeed; // 이동 속도를 달리기 속도로 변경
-    //        curMoveSpeed = dashSpeed;
-    //    }
-    //    // Shift 키에서 손을 떼는 순간(Canceled)
-    //    else if (context.phase == InputActionPhase.Canceled)
-    //    {
-    //        //curMoveSpeed = walkSpeed; // 이동 속도를 원래 속도로 되돌림
-    //        curMoveSpeed = walkSpeed;
-    //    }
-    //}
-
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -116,7 +100,6 @@ public class PlayerController : MonoBehaviour
             isDash = false;
         }
     }
-
 
 
     void CameraLook()
@@ -177,11 +160,5 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed) GetComponent<PortalShooter>().ShootPortal(false);
     }
-    public void DropItem()
-    {
-        if (characterGetItem)
-        {
-            
-        }
-    }
+
 }
