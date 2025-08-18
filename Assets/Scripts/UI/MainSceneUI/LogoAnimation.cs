@@ -12,10 +12,28 @@ public class LogoAnimation : MonoBehaviour
     public float displayTime = 1f;  // 유지 시간
     public Vector3 maxScale = new Vector3(1.0f, 1.0f, 1.0f); // 목표 스케일
 
+    [Header("배경 애니메이션")]
+    public GameObject background; // 배경 애니메이션 오브젝트
+    public Vector3 rotationAxis = Vector3.forward;
+    public float RotateSpeed; // 배경 회전 속도
+
     private void Start()
     {
         // 게임 시작 시 한 번만 코루틴 실행
         StartCoroutine(LoopFadeLogo());
+        StartCoroutine(RotaionBG());
+    }
+
+    IEnumerator RotaionBG() 
+    { 
+        float time = 0f;
+        
+        while (true)
+        {
+           background.transform.Rotate(rotationAxis, RotateSpeed * Time.deltaTime); // 배경 회전
+           yield return null; // 다음 프레임까지 대기
+        }
+        
     }
 
     IEnumerator LoopFadeLogo()
