@@ -14833,7 +14833,7 @@ GameObject:
   - component: {fileID: 1784781030}
   - component: {fileID: 1784781029}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15201,6 +15201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd83f041604e824ca5063447ea638c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneNum: 0
 --- !u!1 &1805865488
 GameObject:
   m_ObjectHideFlags: 0
@@ -15347,6 +15348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8939f49fb1454ff4e8ee4d7af00597b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneNum: 0
 --- !u!1001 &1806972650
 PrefabInstance:
   m_ObjectHideFlags: 0
