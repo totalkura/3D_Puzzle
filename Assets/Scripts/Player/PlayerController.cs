@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    void ToggleCursor() //일시정지
+    public void ToggleCursor() //일시정지
     {
         bool toggle = Cursor.lockState == CursorLockMode.Locked;
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;

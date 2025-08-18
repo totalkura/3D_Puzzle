@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
         public PlayerController controller;
         public PlayerCondition condition;
 
-        private void Awake()
+        public ConsoleKeypad consoleKeypad; // 콘솔 키패드 참조
+
+    private void Awake()
         {
             CharacterManager.Instance.Player = this;
             controller = GetComponent<PlayerController>();
