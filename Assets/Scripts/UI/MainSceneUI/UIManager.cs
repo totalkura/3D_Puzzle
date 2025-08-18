@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    private void Start()
+    {
+        
+    }
 
     public void OnStageSelector(int sceneNum)
     {
