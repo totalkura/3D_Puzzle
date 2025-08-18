@@ -10,13 +10,18 @@ public class Interaction : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject curInteractGameObject;
-    public GameObject[] itemDatas;
+
 
     private IInteractable curInteractable; //원래 아이템이었지만, 지금은 문열기, 큐브들기, +@ 
 
     public TextMeshProUGUI promptText;
     private Camera _camera;
 
+    private void Awake()
+    {
+        GameObject foundObj = GameObject.Find("PromptText");
+        promptText = foundObj.GetComponent<TextMeshProUGUI>();
+    }
 
     void Start()
     {

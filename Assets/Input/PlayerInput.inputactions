@@ -60,7 +60,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ShootBluePotal",
+                    "name": "Shoot",
                     "type": "Button",
                     "id": "fa5dbd20-0c82-44db-9f1a-6f9e5ba9dad5",
                     "expectedControlType": "Button",
@@ -196,7 +196,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ShootBluePotal",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
