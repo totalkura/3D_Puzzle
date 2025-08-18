@@ -4,8 +4,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
-    [SerializeField]
-    private int userLastStage;
+   
+    public int userLastStage;
     public int userSelectStage;
 
     public static GameManager Instance
@@ -43,12 +43,4 @@ public class GameManager : MonoBehaviour
     {
         return userSelectStage = stage;
     }
-
-    //UI매니저에서 관리 아래거
-    /*
-    public void ResetData()
-    {
-        PlayerPrefs.DeleteAll();
-    }
-    */
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,15 +10,34 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public void ResetData()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
     public void OnStageSelector(int sceneNum)
     {
-        //GameManager.LoadScene(1);
+        GameManager.Instance.StageCheck(sceneNum);
+        SceneManager.LoadScene("InGameScene");
     }
 
-    public void OnReLoder()
+    public void OnReLoder(int sceneNum)
     {
-        //int currentSceneNum = GameManager.GetActiveSceneNum();
-        //GameManager.LoadScene(currentSceneNum);
+        GameManager.Instance.StageCheck(sceneNum);
+        SceneManager.LoadScene("InGameScene");
     }
 
+    // ========== 스테이지 선택 버튼 ===================
+
+    public void OnStage1(int sceneNum)
+    {
+        GameManager.Instance.StageCheck(sceneNum);
+        SceneManager.LoadScene("InGameScene");
+    }
+
+    public void OnLoadStage()
+    {
+        GameManager.Instance.StageCheck(GameManager.Instance.userLastStage);
+        SceneManager.LoadScene("InGameScene");
+    }
 }
