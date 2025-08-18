@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
@@ -9,6 +8,8 @@ public class MapManager : MonoBehaviour
     private MapData mapdata;
 
     public int stageNum;
+    public int nowStage;
+
 
     public static MapManager Instance
     {
@@ -53,7 +54,7 @@ public class MapManager : MonoBehaviour
 
     public void ReStart()
     {
-        GameManager.Instance.userSelectStage = stageNum;
+        GameManager.Instance.userSelectStage = nowStage;
         SceneManager.LoadScene("InGameScene");
     }
 }
