@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    // ========== 싱글톤 ===================
     private void Start()
     {
         
     }
+
+    // ========== 메인 메뉴 버튼 ===================
 
     public void ResetData()
     {
