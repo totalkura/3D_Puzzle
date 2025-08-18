@@ -7,9 +7,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int userLastStage;
     public int userSelectStage;
-    
-    public Vector3 playerPosition;
-
 
     public static GameManager Instance
     {
@@ -30,16 +27,24 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(PlayerPrefs.HasKey("LastStage"))
-            userLastStage = PlayerPrefs.GetInt("LastStage");
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            if (PlayerPrefs.HasKey("LastStage"))
+                userLastStage = PlayerPrefs.GetInt("LastStage");
+        }
+        else if (instance != this) Destroy(gameObject);
+
     }
 
-    public int StageLoad(int stage)
+    public int StageCheck(int stage)
     {
         return userSelectStage = stage;
     }
 
+    //UI매니저에서 관리 아래거
     public void ResetData()
     {
         PlayerPrefs.DeleteAll();
