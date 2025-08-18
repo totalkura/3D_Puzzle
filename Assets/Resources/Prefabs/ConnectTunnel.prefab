@@ -288,6 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2242242125990712368}
   - component: {fileID: 4717839508343930034}
+  - component: {fileID: 4959226583588347306}
   m_Layer: 0
   m_Name: StageCheck
   m_TagString: CheckPoint
@@ -331,6 +332,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4959226583588347306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160916342941913681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e56d06533d5d7b48a80ffb2cf667103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageCheck: 0
 --- !u!1 &8335257515201846911
 GameObject:
   m_ObjectHideFlags: 0

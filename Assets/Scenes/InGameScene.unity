@@ -2439,8 +2439,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 20535900, guid: ef77650fcc7dfd64a8d614922d90c382, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3414,8 +3413,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 20538866, guid: a185d2c8149cc7d45a8bc91951812dc1, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4538,6 +4536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageNum: 0
+  nowStage: 0
 --- !u!1001 &507106998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21531,6 +21530,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -40.336
       objectReference: {fileID: 0}
+    - target: {fileID: 4959226583588347306, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
+      propertyPath: stageCheck
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4985651708704317188, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -23933,6 +23936,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3869810135567395107, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
       propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959226583588347306, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
+      propertyPath: stageCheck
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4985651708704317188, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
