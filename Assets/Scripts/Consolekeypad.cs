@@ -1,17 +1,17 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 
 public class ConsoleKeypad : MonoBehaviour
 {
-    public TMP_Text displayText;   // ÀÔ·Â ¼ıÀÚ Ç¥½Ã
+    public TMP_Text displayText;   // ì…ë ¥ ìˆ«ì í‘œì‹œ
     private string currentInput = "";
 
-    public string correctCode = "1234"; // Á¤´ä ÄÚµå (ÆÛÁñ Á¤´ä)
+    public string correctCode = "1234"; // ì •ë‹µ ì½”ë“œ (í¼ì¦ ì •ë‹µ)
 
-    // ¹öÆ°¿¡¼­ È£ÃâµÉ ÇÔ¼ö
+    // ë²„íŠ¼ì—ì„œ í˜¸ì¶œë  í•¨ìˆ˜
     public void OnNumberButton(string number)
     {
-        if (currentInput.Length < 4) // ÀÔ·Â Á¦ÇÑ (¿¹: 4ÀÚ¸®)
+        if (currentInput.Length < 4) // ì…ë ¥ ì œí•œ (ì˜ˆ: 4ìë¦¬)
         {
             currentInput += number;
             displayText.text = currentInput;
@@ -28,12 +28,12 @@ public class ConsoleKeypad : MonoBehaviour
     {
         if (currentInput == correctCode)
         {
-            Debug.Log("Á¤´ä! ¹®ÀÌ ¿­¸³´Ï´Ù");
-            // ¿©±â¼­ ¹® ¿­±â ¾Ö´Ï¸ŞÀÌ¼Ç µî ½ÇÇà
+            Debug.Log("ì •ë‹µ! ë¬¸ì´ ì—´ë¦½ë‹ˆë‹¤");
+            // ì—¬ê¸°ì„œ ë¬¸ ì—´ê¸° ì• ë‹ˆë©”ì´ì…˜ ë“± ì‹¤í–‰
         }
         else
         {
-            Debug.Log("Æ²·È½À´Ï´Ù");
+            Debug.Log("í‹€ë ¸ìŠµë‹ˆë‹¤");
             currentInput = "";
             displayText.text = currentInput;
         }

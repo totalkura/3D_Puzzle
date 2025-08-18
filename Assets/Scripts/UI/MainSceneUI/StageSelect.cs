@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StageSelect : MonoBehaviour
 {
-    public int sceneNum; // ÇöÀç ¾À ¹øÈ£¸¦ ÀúÀåÇÒ º¯¼ö
+    public int sceneNum; // í˜„ìž¬ ì”¬ ë²ˆí˜¸ë¥¼ ì €ìž¥í•  ë³€ìˆ˜
 
     public void OnStageSelector(int sceneNum)
     {
