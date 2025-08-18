@@ -8,11 +8,12 @@ public class SceneTransition : MonoBehaviour
     public Image transitionImage;
     public float transitionDuration;
     public bool fadeInOnStart = true;
-
+    public int Scenenum;
 
     public void Start()
     {
         //StartCoroutine(FadeIn());
+        //Scenenum = GameManager.GetComponenet<>();
     }
 
     public void LoadScene(int sceneName) 

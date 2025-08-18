@@ -10,7 +10,7 @@ public class LogoAnimation : MonoBehaviour
     public TextColorGradient textColorGradient; // 텍스트 색상 그라데이션 컴포넌트
     public float fadeDuration = 1f; // 페이드 인/아웃 시간
     public float displayTime = 1f;  // 유지 시간
-    public Vector3 maxScale = new Vector3(1.2f, 1.2f, 1.2f); // 목표 스케일
+    public Vector3 maxScale = new Vector3(1.0f, 1.0f, 1.0f); // 목표 스케일
 
     private void Start()
     {
