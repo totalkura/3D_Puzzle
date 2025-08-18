@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
 
     public Action inventory;
     private Rigidbody _rigidbody;
-    public Transform holdPoint;
 
     private void Awake()
     {
