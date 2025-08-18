@@ -17,6 +17,11 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI promptText;
     private Camera _camera;
 
+    private void Awake()
+    {
+        GameObject foundObj = GameObject.Find("PromptText");
+        promptText = foundObj.GetComponent<TextMeshProUGUI>();
+    }
 
     void Start()
     {
