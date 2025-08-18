@@ -12,7 +12,9 @@ public class UIManager : MonoBehaviour
 
     public void ResetData()
     {
+        Debug.Log("Check");
         PlayerPrefs.DeleteAll();
+        GameManager.Instance.userLastStage = 0;
     }
 
     public void OnStageSelector(int sceneNum)

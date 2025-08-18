@@ -35,7 +35,6 @@ public class MapManager : MonoBehaviour
         _player = Resources.Load<GameObject>("Prefabs/Player");
 
         //플레이어 시작위치
-        //Instantiate(_player, Vector3.zero, Quaternion.identity);
         Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
         SceneManager.sceneLoaded += SceneChange;
