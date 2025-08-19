@@ -10,6 +10,7 @@ public class MapManager : MonoBehaviour
     public int stageNum;
     public int nowStage;
 
+    public bool isPlay;
 
     public static MapManager Instance
     {
@@ -30,12 +31,15 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
+        isPlay = true;
+        //SoundManager.instance.StopSounds();
+        SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
+
         stageNum = GameManager.Instance.userSelectStage;
         mapdata = new MapData();
         _player = Resources.Load<GameObject>("Prefabs/Player");
 
         //플레이어 시작위치
-        //Instantiate(_player, Vector3.zero, Quaternion.identity);
         Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
         SceneManager.sceneLoaded += SceneChange;

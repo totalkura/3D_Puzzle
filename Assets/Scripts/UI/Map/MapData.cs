@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapData
@@ -23,6 +24,8 @@ public class MapData
             stagePosition.Add(transforms.transform.position);
         }
 
+        stagePosition = stagePosition.OrderByDescending(v => v.x).ToList();
+
         return stagePosition;
     }
 
@@ -30,4 +33,5 @@ public class MapData
     {
         return stagePosition[stagenum];
     }
+
 }

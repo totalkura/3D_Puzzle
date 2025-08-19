@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public GameObject StageScene;
     public GameObject MainButton;
     public GameObject BackSpace;
+    public GameObject OptionScene;
+    public GameObject Option;
 
     public void OnStageSelector()
     {
@@ -40,11 +42,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // ========== 옵션 버튼 ===================
+    public void OnOption()
+    {
+       MainButton.SetActive(false);
+       OptionScene.SetActive(true); 
+    }
+
+    // 옵션 버튼이 눌리면 -> 메인 메뉴로 전환
+    public void CloseOption()
+    {
+        OptionScene.SetActive(false);  // 옵션 메뉴 비활성화
+        MainButton.SetActive(true);    // 메인 메뉴 다시 활성화
+    }
+
     // ========== 메인 메뉴 버튼 ===================
 
     public void ResetData()
     {
+        Debug.Log("Check");
         PlayerPrefs.DeleteAll();
+        GameManager.Instance.userLastStage = 0;
     }
 
     public void OnNEWStageSelector(int sceneNum)
@@ -72,4 +90,6 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.StageCheck(GameManager.Instance.userLastStage);
         SceneManager.LoadScene("InGameScene");
     }
+
+   
 }

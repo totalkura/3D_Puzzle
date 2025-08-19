@@ -4,7 +4,7 @@ public class Door : MonoBehaviour,IInteractable
 {
     public Animator animator;
     public GameObject gameObjects;
-    public float doorTiem;
+    public float doorTime;
 
     Material material;
 
@@ -18,11 +18,13 @@ public class Door : MonoBehaviour,IInteractable
     public void DoorOpen()
     {
         animator.SetBool("character_nearby", true);
+        SoundManager.instance.PlayOther(SoundManager.other.door);
+
         if(material != null)
             material.color = Color.blue;
-        if (doorTiem > 0)
+        if (doorTime > 0)
         {
-            Invoke("DoorClose", doorTiem);
+            Invoke("DoorClose", doorTime);
         }
     }
     public void DoorClose()

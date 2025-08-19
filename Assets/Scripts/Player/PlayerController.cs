@@ -100,6 +100,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnEscape(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && MapManager.Instance.isPlay)
+        {
+            MapManager.Instance.isPlay = !MapManager.Instance.isPlay;
+            Time.timeScale = MapManager.Instance.isPlay ? 1.0f : 0f;
+
+            //UI
+
+        }
+    }
 
     void CameraLook()
     {
