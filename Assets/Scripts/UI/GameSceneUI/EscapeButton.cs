@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenuUI; // 메뉴 패널
+    public GameObject ESCPanel;
+    public GameObject Option;
 
     // 재시작 버튼
     public void RestartGame()
@@ -15,15 +16,21 @@ public class PauseMenuManager : MonoBehaviour
 
     public void OptionGame()
     {
-        UIManager uIManager = FindObjectOfType<UIManager>();
-        Time.timeScale = 1f;
-        uIManager.Option.SetActive(true); // 옵션 패널 활성화
+        Option.SetActive(true);
+        ESCPanel.SetActive(false); // ESC 패널 비활성
+    }
+
+    public void OptionExitGame()
+    {
+        Option.SetActive(false);
+        ESCPanel.SetActive(true); // ESC 패널 비활성
     }
 
     // 게임 종료 버튼
     public void QuitGame()
     {
         Time.timeScale = 1f; // 시간 정상화
+        SoundManager.instance.PlayBGM(SoundManager.bgm.Main); // 메인 BGM 재생
         SceneManager.LoadScene(0); // 빌드 세팅에서 0번 씬이 메인 씬일 경우
     }
 }

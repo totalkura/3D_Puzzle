@@ -40,19 +40,9 @@ public class MapManager : MonoBehaviour
         //플레이어 시작위치
         Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
-        SceneManager.sceneLoaded += SceneChange;
 
     }
 
-    private void SceneChange(Scene scene, LoadSceneMode sceneMode)
-    {
-        if (scene.name == "MainScene")
-        {
-            //씬 이동시 파괴
-            SceneManager.sceneLoaded -= SceneChange;
-            Destroy(gameObject);
-        }
-    }
 
     public void ReStart()
     {
