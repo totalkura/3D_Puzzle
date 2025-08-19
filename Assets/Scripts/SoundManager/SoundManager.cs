@@ -89,7 +89,7 @@ public class SoundManager : MonoBehaviour
         listenBgm.Play();
     }
 
-    public void PlayOther(other otherIndex, bool checkRun = false)
+    public void PlayOther(other otherIndex, int checks = 0)
     {
         AudioClip clip = others[(int)otherIndex];
 
@@ -99,15 +99,16 @@ public class SoundManager : MonoBehaviour
 
             if (checkPercent < 0.65f)
             {
-                if (checkRun)
+                if (checks == 1)
                     listenOther.pitch = 2.0f;
-                else
-                    listenOther.pitch = 1.0f;
                 return;
             }
         }
 
-        listenOther.clip = clip;
+        if (checks == 0) listenOther.pitch = 1.0f;
+        else if (checks == 1) listenOther.pitch = 2.0f;
+
+            listenOther.clip = clip;
         listenOther.loop = false;
         listenOther.Play();
 

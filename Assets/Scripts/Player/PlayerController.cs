@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime))
         {
-            SoundManager.instance.PlayOther(SoundManager.other.work,true);
+            SoundManager.instance.PlayOther(SoundManager.other.work,1);
             curMoveSpeed = dashSpeed;
         }
         else
