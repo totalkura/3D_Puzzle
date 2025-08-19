@@ -1,10 +1,17 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UIManager : MonoBehaviour
 {
+
     // ========== SetActive ===================
 
     [Header("메인 메뉴")]
@@ -17,6 +24,7 @@ public class UIManager : MonoBehaviour
     [Header("페이드 애니메이터")]
     public Animator animator;
     public float transitionTime;
+
 
     // ========== 씬 전환 ===================
     public void OnNEWStageSelector(int sceneNum)
@@ -133,4 +141,91 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    //여기 아래부터 테스트
+
+    [Header("TEST")]
+    public GameObject thisObjects;
+    public GameObject stage;
+
+    public Sprite[] _images;
+    public List<GameObject> stages;
+
+    public int maxStage;
+
+    private void Start()
+    {
+        maxStage = 9;
+        Tests();
+        StageScene.SetActive(false);
+    }
+
+    public void Tests()        
+    {
+        _images = Resources.LoadAll<Sprite>("Images");
+        thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
+        stage = GameObject.Find("Stages");
+
+        stages = new List<GameObject>();
+
+        for (int i = 0; i < maxStage; i++)
+        {
+            GameObject tesss = Instantiate(thisObjects, stage.transform);
+            tesss.name = "Stage" + (i+1);
+            stages.Add(tesss);
+        }
+
+        int a = 0;
+
+        foreach (GameObject gameObject in stages)
+        {
+            a++;
+            Transform[] stagesObjects = gameObject.GetComponentsInChildren<Transform>();
+
+            foreach (Transform transform in stagesObjects)
+            {
+                if (transform.name == "StageNum")
+                {
+                    TextMeshProUGUI testMesh = transform.GetComponent<TextMeshProUGUI>();
+                    testMesh.text = "Stage" + a;
+                }
+                else if (transform.name == "Lock")
+                {
+                    Image images = transform.GetComponent<Image>();
+                    //images.color = Color.
+                    if (a == 1)
+                        images.sprite = _images[a - 1];
+                    else
+                    {
+                        Color randomColor = new Color(
+                                 Random.value, // R
+                                 Random.value, // G
+                                 Random.value,  // B
+                                 Random.value
+                                    );
+
+                        images.color = randomColor;
+                    }
+                    
+                }
+            }
+        }
+
+        /*
+        transforms = stage.GetComponentsInChildren<Transform>();
+
+        stages = new List<GameObject>();
+
+        foreach (Transform transforms in transforms)
+        {
+            if (transforms.name.StartsWith("Stage"))
+            {
+                if (transforms.name == "Stages" || transforms.name == "StageNum") 
+                    continue;
+                stages.Add(transforms.gameObject);
+            }
+        }
+        */
+
+
+    }
 }
