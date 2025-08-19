@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() // 리지드바디나 물리연산은 픽스드업데이트
     {
-        if(isMove)
+        if(isMove && isPlay)
             move();
     }
 
@@ -145,10 +145,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && isGrounded() && CharacterManager.Instance.Player.condition.HasStaminaForJump(20))
-        {    
-            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); //순간적으로힘을주는 임펄스
-        }
+        if(isPlay)
+            if (context.phase == InputActionPhase.Started && isGrounded() && CharacterManager.Instance.Player.condition.HasStaminaForJump(20))
+            {    
+                _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); //순간적으로힘을주는 임펄스
+            }
 
     }
 
