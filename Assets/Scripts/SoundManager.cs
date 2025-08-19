@@ -35,6 +35,17 @@ public class SoundManager : MonoBehaviour
             return instance;
         }
     }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public enum bgm
     {
@@ -52,15 +63,19 @@ public class SoundManager : MonoBehaviour
 
     public void Start()
     {
-        PlayBGM(0);
+        PlayBGM(bgm.Main);
         UpdateVolume();
     }
 
+    public void StopSounds()
+    {
+        listenBgm.Stop();
+        listenOther.Stop();
+    }
 
     public void PlayBGM(bgm bgmIndex)
     {
         listenBgm.clip = bgms[(int)bgmIndex];
-        listenBgm.loop = true;
         listenBgm.Play();
     }
 

@@ -30,6 +30,9 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
+        //SoundManager.instance.StopSounds();
+        SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
+
         stageNum = GameManager.Instance.userSelectStage;
         mapdata = new MapData();
         _player = Resources.Load<GameObject>("Prefabs/Player");
