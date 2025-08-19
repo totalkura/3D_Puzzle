@@ -1,4 +1,5 @@
-ï»¿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapData
@@ -14,14 +15,16 @@ public class MapData
     {
         GameObject[] stageTransforms = GameObject.FindGameObjectsWithTag("CheckPoint");
 
-        //ë§¨ì²˜ìŒ ìœ„ì¹˜
+        //¸ÇÃ³À½ À§Ä¡
         stagePosition.Add(Vector3.zero);
 
-        //ìŠ¤í…Œì´ì§€ ìž…êµ¬ ìœ„ì¹˜ ê°€ì ¸ì˜¤ê¸°
+        //½ºÅ×ÀÌÁö ÀÔ±¸ À§Ä¡ °¡Á®¿À±â
         foreach (GameObject transforms in stageTransforms)
         {
             stagePosition.Add(transforms.transform.position);
         }
+
+        stagePosition = stagePosition.OrderByDescending(v => v.x).ToList();
 
         return stagePosition;
     }
@@ -30,4 +33,5 @@ public class MapData
     {
         return stagePosition[stagenum];
     }
+
 }
