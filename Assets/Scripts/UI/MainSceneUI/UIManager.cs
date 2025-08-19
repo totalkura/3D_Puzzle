@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
@@ -17,6 +19,35 @@ public class UIManager : MonoBehaviour
     [Header("페이드 애니메이터")]
     public Animator animator;
     public float transitionTime;
+
+    [Header("락 스테이지")]
+    public GameObject[] stageObject;
+    public GameObject stageMap;
+    public int maxStage;
+
+    private void Awake()
+    {
+        // 씬이 시작될 때 스테이지 UI 업데이트
+        UpdateStageUI();
+
+        maxStage = 10; // 최대 스테이지 수 설정
+        stageMap = Resources.Load<GameObject>("Prefabs\\Stage1");
+
+        stageObject = new GameObject[maxStage];
+
+        for (int i = 0; i < maxStage; i++)
+        {
+            stageObject[i] = stageMap;
+        }
+
+        foreach (GameObject stage in stageObject)
+        {
+            if (stage != null)
+            {
+                stage.SetActive(false); // 초기에는 모든 스테이지 비활성화
+            }
+        }
+    }
 
     // ========== 씬 전환 ===================
     public void OnNEWStageSelector(int sceneNum)
@@ -63,9 +94,22 @@ public class UIManager : MonoBehaviour
 
     // ========== 스테이지 선택 버튼 ===================
 
-    public void OnStage1(int sceneNum)
+    public void OnSelectStage(int sceneNum)
     {
+        // 현재 스테이지 체크
         GameManager.Instance.StageCheck(sceneNum);
+
+        // 스테이지 잠금 여부 확인
+        if (sceneNum > GameManager.Instance.userLastStage)
+        {
+            Debug.Log("아직 잠긴 스테이지입니다.");
+
+            // 실행하지 않고 그대로 표시
+            StageScene.SetActive(true);
+
+        }
+
+        // 스테이지 진입
         animator.SetTrigger("FadeOut");
         SceneManager.LoadScene("InGameScene");
     }
@@ -133,4 +177,10 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    // ========== 스테이지 UI 업데이트 ===================
+
+    public void UpdateStageUI()
+    {
+      
+    }
 }
