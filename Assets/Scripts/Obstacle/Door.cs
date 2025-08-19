@@ -19,7 +19,7 @@ public class Door : MonoBehaviour,IInteractable
     {
         animator.SetBool("character_nearby", true);
         SoundManager.instance.PlayOther(SoundManager.other.door);
-        
+
         if(material != null)
             material.color = Color.blue;
         if (doorTime > 0)
