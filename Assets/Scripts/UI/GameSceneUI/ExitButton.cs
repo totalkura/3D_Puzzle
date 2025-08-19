@@ -1,22 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-
-public class ExitButton : MonoBehaviour
+public class ManuButton : MonoBehaviour
 {
-    public int SceneNum; // 현재 씬 번호를 저장할 변수
-
-    public void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        // 현재 씬 번호를 가져와서 SceneNum에 저장
-        //SceneNum = GameManager.GetComponenet<>();
+        
     }
 
-    public void OnClickExitButton() 
+    // Update is called once per frame
+    void Update()
     {
-            Debug.Log("ExitButton Clicked");
-            SceneManager.LoadScene("MainScene");
+        
     }
 }
