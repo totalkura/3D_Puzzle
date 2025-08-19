@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour
     [Range(0f, 1f)] public float bgmVolume = 1f;
     [Range(0f, 1f)] public float otherVolume = 1f;
 
-
+    string musicPath = "Sounds/Musics/";
     public static SoundManager Instance
     {
         get
@@ -45,6 +45,9 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        others = Resources.LoadAll<AudioClip>(musicPath + "OtherSounds");
+        bgms = Resources.LoadAll<AudioClip>(musicPath + "BGMs");
     }
 
     public enum bgm

@@ -348,11 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 43bde0fa45b2ab84188b10719581e6aa, type: 2}
-  bgms:
-  - {fileID: 8300000, guid: 18b39e89584e34344963b373c22ec4bf, type: 3}
-  - {fileID: 8300000, guid: 1a816ceacd214d04aa6fefb4819c73c9, type: 3}
-  others:
-  - {fileID: 8300000, guid: 2fe3b4f180f6bb047840413c58bdbdb5, type: 3}
+  bgms: []
+  others: []
   listenBgm: {fileID: 7882329}
   listenOther: {fileID: 7882328}
   masterVolume: 1
