@@ -15,7 +15,11 @@ public class ButtonOutline : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // 마우스가 버튼에 닿았을 때
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (outline != null) outline.enabled = true;
+        if (outline != null)
+        {
+            SoundManager.instance.PlayOther(SoundManager.other.button);
+            outline.enabled = true;
+        }
     }
 
     // 마우스가 버튼에서 벗어났을 때
