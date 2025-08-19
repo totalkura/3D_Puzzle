@@ -3,6 +3,20 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
+    public enum bgm
+    {
+        Main,
+        InGame
+    }
+
+    public enum other
+    {
+        button,
+        door,
+        work,
+        run
+    }
+
     public static SoundManager instance;
 
     [Header("Audio Mixer")]
@@ -14,9 +28,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource listenBgm;
     [SerializeField] AudioSource listenOther;
 
-    [Range(0f, 1f)] public float masterVolume = 1f;
-    [Range(0f, 1f)] public float bgmVolume = 1f;
-    [Range(0f, 1f)] public float otherVolume = 1f;
+    [Range(0f, 1f)] public float masterVolume;
+    [Range(0f, 1f)] public float bgmVolume;
+    [Range(0f, 1f)] public float otherVolume;
 
     string musicPath = "Sounds/Musics/";
     public static SoundManager Instance
@@ -48,26 +62,19 @@ public class SoundManager : MonoBehaviour
 
         others = Resources.LoadAll<AudioClip>(musicPath + "OtherSounds");
         bgms = Resources.LoadAll<AudioClip>(musicPath + "BGMs");
-    }
 
-    public enum bgm
-    {
-        Main,
-        InGame
-    }
 
-    public enum other
-    {
-        button,
-        door,
-        work,
-        run
+        //시작시 볼륨 값 고정
+        masterVolume = 0.7f;
+        bgmVolume = 0.5f;
+        otherVolume = 0.3f;
     }
 
     public void Start()
     {
-        PlayBGM(bgm.Main);
+
         UpdateVolume();
+        PlayBGM(bgm.Main);
     }
 
     public void StopSounds()
@@ -82,10 +89,28 @@ public class SoundManager : MonoBehaviour
         listenBgm.Play();
     }
 
-    public void PlayOther(other otherIndex)
+    public void PlayOther(other otherIndex, bool checkRun = false)
     {
+        AudioClip clip = others[(int)otherIndex];
+
+        if (listenOther.isPlaying && listenOther.clip == clip)
+        {
+            float checkPercent = listenOther.time / clip.length;
+
+            if (checkPercent < 0.65f)
+            {
+                if (checkRun)
+                    listenOther.pitch = 2.0f;
+                else
+                    listenOther.pitch = 1.0f;
+                return;
+            }
+        }
+
+        listenOther.clip = clip;
         listenOther.loop = false;
-        listenOther.PlayOneShot(others[(int)otherIndex]);
+        listenOther.Play();
+
     }
 
     private void UpdateVolume()
@@ -102,7 +127,6 @@ public class SoundManager : MonoBehaviour
 
     public void SetMasterVolume(float values)
     {
-        Debug.Log(values);
         masterVolume = values;
         UpdateVolume();
     }

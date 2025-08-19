@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 public class LogoAnimation : MonoBehaviour
@@ -26,7 +26,6 @@ public class LogoAnimation : MonoBehaviour
 
     IEnumerator RotaionBG() 
     { 
-        float time = 0f;
         
         while (true)
         {

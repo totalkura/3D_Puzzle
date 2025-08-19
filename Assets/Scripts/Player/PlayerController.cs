@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() // 리지드바디나 물리연산은 픽스드업데이트
     {
-        move();
+        if(isMove)
+            move();
     }
 
     private void LateUpdate()
@@ -58,12 +59,15 @@ public class PlayerController : MonoBehaviour
     void move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+
         if (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime))
         {
+            SoundManager.instance.PlayOther(SoundManager.other.work,true);
             curMoveSpeed = dashSpeed;
         }
         else
         {
+            SoundManager.instance.PlayOther(SoundManager.other.work);
             curMoveSpeed = walkSpeed;
             isDash = false;
         }
