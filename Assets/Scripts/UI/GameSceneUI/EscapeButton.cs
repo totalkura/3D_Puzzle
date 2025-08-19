@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI; // 메뉴 패널
-    private bool isPaused = false;
 
     // 재시작 버튼
     public void RestartGame()
     {
         Time.timeScale = 1f;  // 시간 정상화
+        GameManager.Instance.userSelectStage = MapManager.Instance.nowStage;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 현재 씬 다시 로드
     }
 
