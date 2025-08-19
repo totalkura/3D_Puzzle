@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI; // 메뉴 패널
     private bool isPaused = false;
+
 
     void Update()
     {
