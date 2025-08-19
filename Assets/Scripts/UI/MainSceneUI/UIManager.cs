@@ -1,12 +1,17 @@
-﻿using System;
+﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UIManager : MonoBehaviour
 {
+
     // ========== SetActive ===================
 
     [Header("메인 메뉴")]
@@ -20,34 +25,6 @@ public class UIManager : MonoBehaviour
     public Animator animator;
     public float transitionTime;
 
-    [Header("락 스테이지")]
-    public GameObject[] stageObject;
-    public GameObject stageMap;
-    public int maxStage;
-
-    private void Awake()
-    {
-        // 씬이 시작될 때 스테이지 UI 업데이트
-        UpdateStageUI();
-
-        maxStage = 10; // 최대 스테이지 수 설정
-        stageMap = Resources.Load<GameObject>("Prefabs\\Stage1");
-
-        stageObject = new GameObject[maxStage];
-
-        for (int i = 0; i < maxStage; i++)
-        {
-            stageObject[i] = stageMap;
-        }
-
-        foreach (GameObject stage in stageObject)
-        {
-            if (stage != null)
-            {
-                stage.SetActive(false); // 초기에는 모든 스테이지 비활성화
-            }
-        }
-    }
 
     // ========== 씬 전환 ===================
     public void OnNEWStageSelector(int sceneNum)
@@ -94,22 +71,9 @@ public class UIManager : MonoBehaviour
 
     // ========== 스테이지 선택 버튼 ===================
 
-    public void OnSelectStage(int sceneNum)
+    public void OnStage1(int sceneNum)
     {
-        // 현재 스테이지 체크
         GameManager.Instance.StageCheck(sceneNum);
-
-        // 스테이지 잠금 여부 확인
-        if (sceneNum > GameManager.Instance.userLastStage)
-        {
-            Debug.Log("아직 잠긴 스테이지입니다.");
-
-            // 실행하지 않고 그대로 표시
-            StageScene.SetActive(true);
-
-        }
-
-        // 스테이지 진입
         animator.SetTrigger("FadeOut");
         SceneManager.LoadScene("InGameScene");
     }
@@ -177,10 +141,91 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // ========== 스테이지 UI 업데이트 ===================
+    //여기 아래부터 테스트
 
-    public void UpdateStageUI()
+    [Header("TEST")]
+    public GameObject thisObjects;
+    public GameObject stage;
+
+    public Sprite[] _images;
+    public List<GameObject> stages;
+
+    public int maxStage;
+
+    private void Start()
     {
-      
+        maxStage = 9;
+        Tests();
+        StageScene.SetActive(false);
+    }
+
+    public void Tests()        
+    {
+        _images = Resources.LoadAll<Sprite>("Images");
+        thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
+        stage = GameObject.Find("Stages");
+
+        stages = new List<GameObject>();
+
+        for (int i = 0; i < maxStage; i++)
+        {
+            GameObject tesss = Instantiate(thisObjects, stage.transform);
+            tesss.name = "Stage" + (i+1);
+            stages.Add(tesss);
+        }
+
+        int a = 0;
+
+        foreach (GameObject gameObject in stages)
+        {
+            a++;
+            Transform[] stagesObjects = gameObject.GetComponentsInChildren<Transform>();
+
+            foreach (Transform transform in stagesObjects)
+            {
+                if (transform.name == "StageNum")
+                {
+                    TextMeshProUGUI testMesh = transform.GetComponent<TextMeshProUGUI>();
+                    testMesh.text = "Stage" + a;
+                }
+                else if (transform.name == "Lock")
+                {
+                    Image images = transform.GetComponent<Image>();
+                    //images.color = Color.
+                    if (a == 1)
+                        images.sprite = _images[a - 1];
+                    else
+                    {
+                        Color randomColor = new Color(
+                                 Random.value, // R
+                                 Random.value, // G
+                                 Random.value,  // B
+                                 Random.value
+                                    );
+
+                        images.color = randomColor;
+                    }
+                    
+                }
+            }
+        }
+
+        /*
+        transforms = stage.GetComponentsInChildren<Transform>();
+
+        stages = new List<GameObject>();
+
+        foreach (Transform transforms in transforms)
+        {
+            if (transforms.name.StartsWith("Stage"))
+            {
+                if (transforms.name == "Stages" || transforms.name == "StageNum") 
+                    continue;
+                stages.Add(transforms.gameObject);
+            }
+        }
+        */
+
+
     }
 }
