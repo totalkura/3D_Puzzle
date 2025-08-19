@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8355169362833587396}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
-        m_MethodName: ResumeGame
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -828,7 +828,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8355169362833587396}
         m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
-        m_MethodName: RestartGame
+        m_MethodName: OptionGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

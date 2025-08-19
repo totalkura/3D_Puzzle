@@ -13,31 +13,18 @@ public class PauseMenuManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 현재 씬 다시 로드
     }
 
-    public void OptionGame(int sceneNum)
+    public void OptionGame()
     {
         UIManager uIManager = FindObjectOfType<UIManager>();
-
-        if (uIManager != null)
-        {
-            uIManager.OnOption();
-
-            Time.timeScale = 1f;
-
-            SceneManager.LoadScene("OptionScene"); // 옵션 씬으로 전환
-        }
-
-        else
-        {
-            Debug.LogError("UIManager not found in the scene.");
-        }
-
+        Time.timeScale = 1f;
+        uIManager.Option.SetActive(true); // 옵션 패널 활성화
     }
 
     // 게임 종료 버튼
     public void QuitGame()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 현재 씬 다시 로드
+        Time.timeScale = 1f; // 시간 정상화
+        SceneManager.LoadScene(0); // 빌드 세팅에서 0번 씬이 메인 씬일 경우
     }
 }
 
