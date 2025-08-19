@@ -5,6 +5,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    private PauseMenuManager EscapePanel;
 
     [Header("Movement")]
     public float walkSpeed; //3
@@ -29,16 +30,19 @@ public class PlayerController : MonoBehaviour
 
     public Action inventory;
     private Rigidbody _rigidbody;
+    public bool isPlay;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        isPlay = true;
         curMoveSpeed = walkSpeed;
-        
     }
 
     void Start()
     {
+        EscapePanel = FindObjectOfType<PauseMenuManager>();
+        EscapePanel.gameObject.SetActive(false); // 게임 시작시 일시정지 패널 비활성화
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -49,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (canLook)
+        if (canLook && isPlay)
         {
             CameraLook();
         }
@@ -102,13 +106,19 @@ public class PlayerController : MonoBehaviour
 
     public void OnEscape(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && MapManager.Instance.isPlay)
+        if (context.phase == InputActionPhase.Performed)
         {
-            MapManager.Instance.isPlay = !MapManager.Instance.isPlay;
-            Time.timeScale = MapManager.Instance.isPlay ? 1.0f : 0f;
+            
+            Debug.Log("Escape Key Pressed");
+            isPlay = !isPlay;
+            Time.timeScale = isPlay ? 1.0f : 0f;
 
-            //UI
+            //UI 
+            if (EscapePanel != null)
+            EscapePanel.gameObject.SetActive(!isPlay);
 
+            else
+                Debug.LogWarning("EscapePanel not found! Make sure it is in the scene.");
         }
     }
 
