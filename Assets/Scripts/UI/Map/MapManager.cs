@@ -10,7 +10,6 @@ public class MapManager : MonoBehaviour
     public int stageNum;
     public int nowStage;
 
-    public bool isPlay;
 
     public static MapManager Instance
     {
@@ -31,7 +30,6 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        isPlay = true;
         //SoundManager.instance.StopSounds();
         SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
 

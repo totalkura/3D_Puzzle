@@ -2,41 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    public Image transitionImage;
-    public float transitionDuration;
-    public bool fadeInOnStart = true;
-    public int Scenenum;
+    [SerializeField] private Animator animator;
+    [SerializeField] private float transitionTime = 1f;
 
-    public void Start()
+    // 씬 전환 메서드
+    public void LoadScene(int sceneNum)
     {
-        //StartCoroutine(FadeIn());
-        //Scenenum = GameManager.GetComponenet<>();
+        StartCoroutine(TransitionToScene(sceneNum));
     }
 
-    public void LoadScene(int sceneName) 
-    { 
-        //StartCoroutine(FadeOut(sceneName));
+    IEnumerator TransitionToScene(int sceneNum) 
+    {
+        // 애니메이션 트리거 실행
+        animator.SetTrigger("FadeOut");
+
+        // 애니메이션이 끝날 때까지 대기
+        yield return new WaitForSeconds(transitionTime);
+
+        // 씬 로드
+        SceneManager.LoadScene(sceneNum);
     }
 
-    //IEnumerator FaidIn() 
-    //{ 
-
-    //}
-
-    IEnumerator FadeOut(int sceneName) 
-    { 
-        float elapsedTime = 0f;
-        Color color = transitionImage.color;
-        while (elapsedTime < transitionDuration) 
-        {
-            elapsedTime += Time.deltaTime;
-            color.a = Mathf.Lerp(0f, 1f, elapsedTime / transitionDuration);
-            transitionImage.color = color;
-            yield return null;
-        }
-        //SceneManager.LoadScene(sceneName);
-    }
 }
