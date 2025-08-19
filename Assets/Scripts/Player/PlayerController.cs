@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         EscapePanel = FindObjectOfType<PauseMenuManager>();
+        if(EscapePanel != null)
         EscapePanel.gameObject.SetActive(false); // 게임 시작시 일시정지 패널 비활성화
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -115,14 +116,16 @@ public class PlayerController : MonoBehaviour
             
             Debug.Log("Escape Key Pressed");
             isPlay = !isPlay;
-            Time.timeScale = isPlay ? 1.0f : 0f;
+            Time.timeScale = isPlay ? 1f : 0f;
 
             //UI 
             if (EscapePanel != null)
             EscapePanel.gameObject.SetActive(!isPlay);
 
             else
-                Debug.LogWarning("EscapePanel not found! Make sure it is in the scene.");
+            Debug.LogWarning("EscapePanel not found!");
+
+            ToggleCursor(); //커서 토글
         }
     }
 
