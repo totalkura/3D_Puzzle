@@ -169,7 +169,7 @@ public class UIManager : MonoBehaviour
     
     public void Tests()        
     {
-        _images = Resources.LoadAll<Sprite>("Images");
+        _images = Resources.LoadAll<Sprite>("Images\\Stage");
         _lockIcon = Resources.LoadAll<Sprite>("LockIcon");
         thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
         stage = GameObject.Find("Stages");
@@ -212,8 +212,8 @@ public class UIManager : MonoBehaviour
                     });
 
                     Image images = transform.GetComponent<Image>();
-                    //images.color = Color.
-                    if (stageValue == 1)
+                    
+                    if(_images.Length > stageValue - 1)
                         images.sprite = _images[stageValue - 1];
                 }
                 else if (transform.name == "Lock")
