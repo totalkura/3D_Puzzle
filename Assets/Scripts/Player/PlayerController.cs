@@ -67,12 +67,12 @@ public class PlayerController : MonoBehaviour
 
         if (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime))
         {
-            SoundManager.instance.PlayOther(SoundManager.other.work,1);
+            SoundManager.instance.PlayOther(SoundManager.playerActive.work,2.2f);
             curMoveSpeed = dashSpeed;
         }
         else
         {
-            SoundManager.instance.PlayOther(SoundManager.other.work);
+            SoundManager.instance.PlayOther(SoundManager.playerActive.work,1.4f);
             curMoveSpeed = walkSpeed;
             isDash = false;
         }
@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
         camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook); // 최소값보다 작으면 최소값을, 최대값보다 크면 최대값을 반환함
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0); //마이너스를붙인이유는 마우스델타값의 y값이 마우스를 아래로 드래그하게되면 마이너스가 되게된다. 로테이션을 직접 돌려보면 마이너스로가면올라가고 플러스로가면 밑을보게된다. 실제로 우리가 동작하는것과 보이는 것이 반대가 된다.
 
+
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
     }
 
@@ -188,5 +189,6 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed) GetComponent<PortalShooter>().ShootPortal(false);
     }
+
 
 }

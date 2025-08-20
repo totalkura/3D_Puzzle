@@ -19,7 +19,7 @@ public class PortalShooter : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, interaction.maxCheckDistance, interaction.layerMask))
+        if (Physics.Raycast(ray, out hit, 2f, interaction.layerMask))
         {
             float offset = 0.05f;
             Vector3 spawnPoint = hit.point + hit.normal * offset;
