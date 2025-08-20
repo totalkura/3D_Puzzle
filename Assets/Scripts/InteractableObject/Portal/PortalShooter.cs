@@ -41,33 +41,33 @@ public class PortalShooter : MonoBehaviour
                 portalInstance.SetActive(true);
             }
 
-            Portal portalComponent = portalInstance.GetComponent<Portal>();
-            if (portalComponent != null)
-            {
-                portalComponent.SetPortalColor(isBlue);
-            }
+            //Portal portalComponent = portalInstance.GetComponent<Portal>();
+            //if (portalComponent != null)
+            //{
+            //    portalComponent.SetPortalColor(isBlue);
+            //}
 
-            if (isBlue)
-            {
-                bluePortal = portalInstance;
-            }
-            else
-            {
-                orangePortal = portalInstance;
-            }
+            //if (isBlue)
+            //{
+            //    bluePortal = portalInstance;
+            //}
+            //else
+            //{
+            //    orangePortal = portalInstance;
+            //}
 
-            if (bluePortal != null && orangePortal != null)
-            {
-                Portal bluePortalComponent = bluePortal.GetComponent<Portal>();
-                Portal orangePortalComponent = orangePortal.GetComponent<Portal>();
+            //if (bluePortal != null && orangePortal != null)
+            //{
+            //    Portal bluePortalComponent = bluePortal.GetComponent<Portal>();
+            //    Portal orangePortalComponent = orangePortal.GetComponent<Portal>();
 
-                bluePortalComponent.linkedPortal = orangePortalComponent;
-                orangePortalComponent.linkedPortal = bluePortalComponent;
+            //    bluePortalComponent.linkedPortal = orangePortalComponent;
+            //    orangePortalComponent.linkedPortal = bluePortalComponent;
             }
-        }
-        else
-        {
-            return;
-        }
+        //}
+        //else
+        //{
+        //    return;
+        //}
     }
 }
