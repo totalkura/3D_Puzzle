@@ -1,18 +1,24 @@
-﻿using JetBrains.Annotations;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UIManager : MonoBehaviour
 {
 
     // ========== SetActive ===================
+
+    [Header("Stage Create")]
+    public GameObject thisObjects;
+    public GameObject stage;
+
+    public Sprite[] _images;
+    public Sprite[] _lockIcon;
+    public List<GameObject> stages;
+
+    public int maxStage;
 
     [Header("메인 메뉴")]
     public GameObject StageScene;
@@ -25,6 +31,14 @@ public class UIManager : MonoBehaviour
     public Animator animator;
     public float transitionTime;
 
+
+
+    private void Start()
+    {
+        maxStage = 9;
+        Tests();
+        StageScene.SetActive(false);
+    }
 
     // ========== 씬 전환 ===================
     public void OnNEWStageSelector(int sceneNum)
@@ -149,24 +163,8 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    //여기 아래부터 테스트
 
-    [Header("TEST")]
-    public GameObject thisObjects;
-    public GameObject stage;
 
-    public Sprite[] _images;
-    public Sprite[] _lockIcon;
-    public List<GameObject> stages;
-
-    public int maxStage;
-
-    private void Start()
-    {
-        maxStage = 9;
-        Tests();
-        StageScene.SetActive(false);
-    }
 
     
     public void Tests()        
@@ -201,60 +199,39 @@ public class UIManager : MonoBehaviour
                     TextMeshProUGUI testMesh = transform.GetComponent<TextMeshProUGUI>();
                     testMesh.text = "Stage" + a;
                 }
-                else if (transform.name == "Lock")
+                else if (transform.name == "Button")
                 {
+                    Button button = transform.GetComponent<Button>();
+                    Debug.Log(button.transform.parent.name);
+                    button.onClick.AddListener(() => GameManager.Instance.StageCheck(a));
+
                     Image images = transform.GetComponent<Image>();
                     //images.color = Color.
                     if (a == 1)
                         images.sprite = _images[a - 1];
-                    else
-                    {
-                        Color randomColor = new Color(
-                                 255, // R
-                                 255, // G
-                                 255,  // B
-                                 255
-                                    );
-
-                        images.color = randomColor;
-                    }
-
                 }
-
+                else if (transform.name == "Lock")
+                {
+                    Image images = transform.GetComponent<Image>();
+                    Color createColor = new Color(255, 255, 255, 0 );
+                    images.color = createColor;
+                }
                 // 김영수 수정 2025.08.20 16:00:00
-                else if (transform.name == "LockIcon") 
-                { 
-                  Image lookIcons = transform.GetComponent<Image>();
+                else if (transform.name == "LockIcon")
+                {
+                    Image lookIcons = transform.GetComponent<Image>();
 
                     if (a == 1)
                     {
                         //images = _images[a - 1];
                     }
-                    
-                    else 
-                    { 
-                       
+
+                    else
+                    {
+
                     }
                 } 
             }
         }
-
-        /*
-        transforms = stage.GetComponentsInChildren<Transform>();
-
-        stages = new List<GameObject>();
-
-        foreach (Transform transforms in transforms)
-        {
-            if (transforms.name.StartsWith("Stage"))
-            {
-                if (transforms.name == "Stages" || transforms.name == "StageNum") 
-                    continue;
-                stages.Add(transforms.gameObject);
-            }
-        }
-        */
-
-
     }
 }

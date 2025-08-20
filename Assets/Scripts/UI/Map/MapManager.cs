@@ -5,7 +5,7 @@ public class MapManager : MonoBehaviour
 {
     private static MapManager instance;
     private GameObject _player;
-    private MapData mapdata;
+    [SerializeField] private MapData mapdata;
 
     public int stageNum;
     public int nowStage;
@@ -38,7 +38,7 @@ public class MapManager : MonoBehaviour
         _player = Resources.Load<GameObject>("Prefabs/Player");
 
         //플레이어 시작위치
-        //Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
+        Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
 
     }
