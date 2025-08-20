@@ -1,7 +1,7 @@
 using System;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.VisualScripting.Member;
 
 public class SoundManager : MonoBehaviour
 {
@@ -98,7 +98,7 @@ public class SoundManager : MonoBehaviour
         listenBgm.Play();
     }
 
-    public void PlayOther<TEnum>(TEnum mixer, int checks = 0) where TEnum : Enum
+    public void PlayOther<TEnum>(TEnum mixer, float pitchSpeed = 1.0f) where TEnum : Enum
     {
         AudioClip clip = null;
         AudioSource source = null;
@@ -116,23 +116,19 @@ public class SoundManager : MonoBehaviour
                 source = listenplayer;
                 break;
         }
-            
 
-        if (source.isPlaying && source.clip == clip && checks != 0)
+        source.pitch = pitchSpeed;
+
+        if (source.isPlaying && source.clip == clip && pitchSpeed != 1.0f)
         {
             float checkPercent = source.time / clip.length;
 
-            if (checkPercent < 0.65f)
+            if (checkPercent < 0.7f)
             {
-                if (checks == 1)
-                    source.pitch = 2.0f;
+                
                 return;
             }
         }
-
-        if (checks == 0) source.pitch = 1.0f;
-        else if (checks == 1) source.pitch = 2.0f;
-
         source.clip = clip;
         source.loop = false;
         source.Play();
@@ -171,4 +167,30 @@ public class SoundManager : MonoBehaviour
         UpdateVolume();
     }
 
+    public void SoundPlayOtherObjectr<TEnum>(TEnum mixer,Vector3 objectPosition, float pitchs = 1.0f) where TEnum : Enum
+    {
+        GameObject oneObject = new GameObject("SoundGo");
+        oneObject.transform.position = objectPosition;
+
+        AudioSource audioSource = oneObject.AddComponent<AudioSource>();
+
+        string enumName = typeof(TEnum).Name;
+
+        switch (enumName)
+        {
+            case "other":
+                audioSource.clip = others[Convert.ToInt32(mixer)];
+                break;
+            case "playerActive":
+                audioSource.clip = players[Convert.ToInt32(mixer)];
+                break;
+        }
+
+        audioSource.volume = mixVolume;
+        audioSource.pitch = pitchs;
+        audioSource.spatialBlend = 1f;
+
+        audioSource.Play();
+        Destroy(oneObject, audioSource.clip.length / pitchs);
+    }
 }
