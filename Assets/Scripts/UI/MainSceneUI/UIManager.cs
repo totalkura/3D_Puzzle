@@ -1,18 +1,24 @@
-﻿using JetBrains.Annotations;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UIManager : MonoBehaviour
 {
 
     // ========== SetActive ===================
+
+    [Header("Stage Create")]
+    public GameObject thisObjects;
+    public GameObject stage;
+
+    public Sprite[] _images;
+    public Sprite[] _lockIcon;
+    public List<GameObject> stages;
+
+    public int maxStage;
 
     [Header("메인 메뉴")]
     public GameObject StageScene;
@@ -25,6 +31,14 @@ public class UIManager : MonoBehaviour
     public Animator animator;
     public float transitionTime;
 
+
+
+    private void Start()
+    {
+        maxStage = 9;
+        Tests();
+        StageScene.SetActive(false);
+    }
 
     // ========== 씬 전환 ===================
     public void OnNEWStageSelector(int sceneNum)
@@ -149,28 +163,14 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    //여기 아래부터 테스트
 
-    [Header("TEST")]
-    public GameObject thisObjects;
-    public GameObject stage;
 
-    public Sprite[] _images;
-    public List<GameObject> stages;
-
-    public int maxStage;
-
-    private void Start()
-    {
-        maxStage = 9;
-        Tests();
-        StageScene.SetActive(false);
-    }
 
     
     public void Tests()        
     {
         _images = Resources.LoadAll<Sprite>("Images");
+        _lockIcon = Resources.LoadAll<Sprite>("LockIcon");
         thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
         stage = GameObject.Find("Stages");
 
@@ -178,17 +178,18 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < maxStage; i++)
         {
-           
             GameObject tesss = Instantiate(thisObjects, stage.transform);
             tesss.name = "Stage" + (i+1);
             stages.Add(tesss);
+
+            //Icons.Icon // 김영수 수정 2025.08.20 16:00:00
         }
 
-        int a = 0;
+        int stageValue = 0;
 
         foreach (GameObject gameObject in stages)
         {
-            a++;
+            stageValue++;
             Transform[] stagesObjects = gameObject.GetComponentsInChildren<Transform>();
 
             foreach (Transform transform in stagesObjects)
@@ -196,46 +197,47 @@ public class UIManager : MonoBehaviour
                 if (transform.name == "StageNum")
                 {
                     TextMeshProUGUI testMesh = transform.GetComponent<TextMeshProUGUI>();
-                    testMesh.text = "Stage" + a;
+                    testMesh.text = "Stage" + stageValue;
+                }
+                else if (transform.name == "Button")
+                {
+                    Button button = transform.GetComponent<Button>();
+
+                    int nullNum = stageValue;
+
+                    button.onClick.AddListener(() =>
+                    {
+                        int stageNum = GameManager.Instance.StageCheck(nullNum);
+                        OnStage1(stageNum);
+                    });
+
+                    Image images = transform.GetComponent<Image>();
+                    //images.color = Color.
+                    if (stageValue == 1)
+                        images.sprite = _images[stageValue - 1];
                 }
                 else if (transform.name == "Lock")
                 {
                     Image images = transform.GetComponent<Image>();
-                    //images.color = Color.
-                    if (a == 1)
-                        images.sprite = _images[a - 1];
+                    Color createColor = new Color(255, 255, 255, 0 );
+                    images.color = createColor;
+                }
+                // 김영수 수정 2025.08.20 16:00:00
+                else if (transform.name == "LockIcon")
+                {
+                    Image lookIcons = transform.GetComponent<Image>();
+
+                    if (stageValue == 1)
+                    {
+                        //images = _images[stageValue - 1];
+                    }
+
                     else
                     {
-                        Color randomColor = new Color(
-                                 255, // R
-                                 255, // G
-                                 255,  // B
-                                 255
-                                    );
 
-                        images.color = randomColor;
                     }
-                    
-                }
+                } 
             }
         }
-
-        /*
-        transforms = stage.GetComponentsInChildren<Transform>();
-
-        stages = new List<GameObject>();
-
-        foreach (Transform transforms in transforms)
-        {
-            if (transforms.name.StartsWith("Stage"))
-            {
-                if (transforms.name == "Stages" || transforms.name == "StageNum") 
-                    continue;
-                stages.Add(transforms.gameObject);
-            }
-        }
-        */
-
-
     }
 }

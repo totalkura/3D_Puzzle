@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ public class SceneTransition : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float transitionTime = 1f;
 
-    // ¾À ÀüÈ¯ ¸Ş¼­µå
+    // ì”¬ ì „í™˜ ë©”ì„œë“œ
     public void LoadScene(int sceneNum)
     {
         StartCoroutine(TransitionToScene(sceneNum));
@@ -18,14 +18,14 @@ public class SceneTransition : MonoBehaviour
 
     IEnumerator TransitionToScene(int sceneNum) 
     {
-        // ¾Ö´Ï¸ŞÀÌ¼Ç Æ®¸®°Å ½ÇÇà
+        // ì• ë‹ˆë©”ì´ì…˜ íŠ¸ë¦¬ê±° ì‹¤í–‰
         animator.SetTrigger("FadeOut");
         Debug.Log("FadeOut Triggered");
 
-        // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯ ¶§±îÁö ´ë±â
+        // ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
         yield return new WaitForSeconds(transitionTime);
 
-        // ¾À ·Îµå
+        // ì”¬ ë¡œë“œ
         SceneManager.LoadScene(sceneNum);
     }
 

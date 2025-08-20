@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.VisualScripting.Member;
 
 public class SoundManager : MonoBehaviour
 {
@@ -13,8 +15,11 @@ public class SoundManager : MonoBehaviour
     {
         button,
         door,
-        work,
-        run
+    }
+
+    public enum playerActive
+    {
+        work
     }
 
     public static SoundManager instance;
@@ -24,13 +29,15 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] bgms;
     [SerializeField] AudioClip[] others;
+    [SerializeField] AudioClip[] players;
 
     [SerializeField] AudioSource listenBgm;
     [SerializeField] AudioSource listenOther;
+    [SerializeField] AudioSource listenplayer;
 
     [Range(0f, 1f)] public float masterVolume;
     [Range(0f, 1f)] public float bgmVolume;
-    [Range(0f, 1f)] public float otherVolume;
+    [Range(0f, 1f)] public float mixVolume;
 
     string musicPath = "Sounds/Musics/";
     public static SoundManager Instance
@@ -62,12 +69,13 @@ public class SoundManager : MonoBehaviour
 
         others = Resources.LoadAll<AudioClip>(musicPath + "OtherSounds");
         bgms = Resources.LoadAll<AudioClip>(musicPath + "BGMs");
+        players = Resources.LoadAll<AudioClip>(musicPath + "Players");
 
 
         //시작시 볼륨 값 고정
         masterVolume = 0.7f;
         bgmVolume = 0.5f;
-        otherVolume = 0.3f;
+        mixVolume = 0.5f;
     }
 
     public void Start()
@@ -81,6 +89,7 @@ public class SoundManager : MonoBehaviour
     {
         listenBgm.Stop();
         listenOther.Stop();
+        listenplayer.Stop();
     }
 
     public void PlayBGM(bgm bgmIndex)
@@ -89,36 +98,50 @@ public class SoundManager : MonoBehaviour
         listenBgm.Play();
     }
 
-    public void PlayOther(other otherIndex, int checks = 0)
+    public void PlayOther<TEnum>(TEnum mixer, float pitchSpeed = 1.0f) where TEnum : Enum
     {
-        AudioClip clip = others[(int)otherIndex];
+        AudioClip clip = null;
+        AudioSource source = null;
 
-        if (listenOther.isPlaying && listenOther.clip == clip)
+        string enumName = typeof(TEnum).Name;
+
+        switch (enumName)
         {
-            float checkPercent = listenOther.time / clip.length;
+            case "other":
+                clip = others[Convert.ToInt32(mixer)];
+                source = listenOther;
+                break;
+            case "playerActive":
+                clip = players[Convert.ToInt32(mixer)];
+                source = listenplayer;
+                break;
+        }
 
-            if (checkPercent < 0.65f)
+        source.pitch = pitchSpeed;
+
+        if (source.isPlaying && source.clip == clip && pitchSpeed != 1.0f)
+        {
+            float checkPercent = source.time / clip.length;
+
+            if (checkPercent < 0.7f)
             {
-                if (checks == 1)
-                    listenOther.pitch = 2.0f;
+                
                 return;
             }
         }
-
-        if (checks == 0) listenOther.pitch = 1.0f;
-        else if (checks == 1) listenOther.pitch = 2.0f;
-
-            listenOther.clip = clip;
-        listenOther.loop = false;
-        listenOther.Play();
+        source.clip = clip;
+        source.loop = false;
+        source.Play();
 
     }
+
 
     private void UpdateVolume()
     {
         audioMixer.SetFloat("Master", LinearToDecibel(masterVolume));
         audioMixer.SetFloat("BGM", LinearToDecibel(bgmVolume));
-        audioMixer.SetFloat("Other", LinearToDecibel(otherVolume));
+        audioMixer.SetFloat("Other", LinearToDecibel(mixVolume));
+        audioMixer.SetFloat("Player", LinearToDecibel(mixVolume));
     }
 
     private float LinearToDecibel(float value)
@@ -140,8 +163,34 @@ public class SoundManager : MonoBehaviour
 
     public void SetOtherVolume(float values)
     {
-        otherVolume = values;
+        mixVolume = values;
         UpdateVolume();
     }
 
+    public void SoundPlayOtherObjectr<TEnum>(TEnum mixer,Vector3 objectPosition, float pitchs = 1.0f) where TEnum : Enum
+    {
+        GameObject oneObject = new GameObject("SoundGo");
+        oneObject.transform.position = objectPosition;
+
+        AudioSource audioSource = oneObject.AddComponent<AudioSource>();
+
+        string enumName = typeof(TEnum).Name;
+
+        switch (enumName)
+        {
+            case "other":
+                audioSource.clip = others[Convert.ToInt32(mixer)];
+                break;
+            case "playerActive":
+                audioSource.clip = players[Convert.ToInt32(mixer)];
+                break;
+        }
+
+        audioSource.volume = mixVolume;
+        audioSource.pitch = pitchs;
+        audioSource.spatialBlend = 1f;
+
+        audioSource.Play();
+        Destroy(oneObject, audioSource.clip.length / pitchs);
+    }
 }
