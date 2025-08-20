@@ -5,44 +5,49 @@ using UnityEngine;
 public class PortalTelleporter : MonoBehaviour
 {
     public Transform player;
-    public Transform reciever;
+    public Transform receiver;
+    private bool canUsePortal;
 
     private bool playerIsOverlapping = false;
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (playerIsOverlapping)
+        playerIsOverlapping = true;
+        if (other.tag == "Player")
+        {
+           onTeleport();
+        }
+        playerIsOverlapping = false;
+    }
+
+    private void onTeleport()
+    {
+        if (playerIsOverlapping && !recentlyTeleported)
         {
             Vector3 portalToPlayer = player.position - transform.position;
             float dotProdict = Vector3.Dot(transform.up, portalToPlayer);
 
-            if (dotProdict < 0f) 
+            if (dotProdict < 0f)
             {
-                float rotationDiff = -Quaternion.Angle(transform.rotation, reciever.rotation);
+                float rotationDiff = -Quaternion.Angle(transform.rotation, receiver.rotation);
                 rotationDiff += 180f;
                 player.Rotate(Vector3.up, rotationDiff);
 
                 Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
-                player.position = reciever.position + positionOffset;
+                Vector3 exitOffset = receiver.forward * 1.0f + Vector3.up*0.01f;
+
+                player.position = receiver.position + positionOffset + exitOffset;
 
                 playerIsOverlapping = false;
             }
-            }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            playerIsOverlapping = true;
+             StartCoroutine(TeleportCooldown(0.2f));
         }
     }
-
-    private void OnTriggerExit(Collider other)
+    private bool recentlyTeleported = false;
+    private IEnumerator TeleportCooldown(float seconds)
     {
-        if (other.tag == "Player")
-        {
-            playerIsOverlapping = false;
-        }
+        recentlyTeleported = true;
+        yield return new WaitForSeconds(seconds);
+        recentlyTeleported = false;
     }
 }
