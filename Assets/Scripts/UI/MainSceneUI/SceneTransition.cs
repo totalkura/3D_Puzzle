@@ -13,12 +13,14 @@ public class SceneTransition : MonoBehaviour
     public void LoadScene(int sceneNum)
     {
         StartCoroutine(TransitionToScene(sceneNum));
+        
     }
 
     IEnumerator TransitionToScene(int sceneNum) 
     {
         // 애니메이션 트리거 실행
         animator.SetTrigger("FadeOut");
+        Debug.Log("FadeOut Triggered");
 
         // 애니메이션이 끝날 때까지 대기
         yield return new WaitForSeconds(transitionTime);
