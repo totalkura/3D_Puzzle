@@ -156,6 +156,7 @@ public class UIManager : MonoBehaviour
     public GameObject stage;
 
     public Sprite[] _images;
+    public Sprite[] _lockIcon;
     public List<GameObject> stages;
 
     public int maxStage;
@@ -171,6 +172,7 @@ public class UIManager : MonoBehaviour
     public void Tests()        
     {
         _images = Resources.LoadAll<Sprite>("Images");
+        _lockIcon = Resources.LoadAll<Sprite>("LockIcon");
         thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
         stage = GameObject.Find("Stages");
 
@@ -178,10 +180,11 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < maxStage; i++)
         {
-           
             GameObject tesss = Instantiate(thisObjects, stage.transform);
             tesss.name = "Stage" + (i+1);
             stages.Add(tesss);
+
+            //Icons.Icon // 김영수 수정 2025.08.20 16:00:00
         }
 
         int a = 0;
@@ -215,8 +218,24 @@ public class UIManager : MonoBehaviour
 
                         images.color = randomColor;
                     }
-                    
+
                 }
+
+                // 김영수 수정 2025.08.20 16:00:00
+                else if (transform.name == "LockIcon") 
+                { 
+                  Image lookIcons = transform.GetComponent<Image>();
+
+                    if (a == 1)
+                    {
+                        //images = _images[a - 1];
+                    }
+                    
+                    else 
+                    { 
+                       
+                    }
+                } 
             }
         }
 
