@@ -31,6 +31,7 @@ public class MapData
 
     public Vector3 LoadStagePosition(int stagenum)
     {
+        
         return stagePosition[stagenum];
     }
 

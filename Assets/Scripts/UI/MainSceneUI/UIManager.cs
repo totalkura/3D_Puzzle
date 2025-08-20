@@ -185,11 +185,11 @@ public class UIManager : MonoBehaviour
             //Icons.Icon // 김영수 수정 2025.08.20 16:00:00
         }
 
-        int a = 0;
+        int stageValue = 0;
 
         foreach (GameObject gameObject in stages)
         {
-            a++;
+            stageValue++;
             Transform[] stagesObjects = gameObject.GetComponentsInChildren<Transform>();
 
             foreach (Transform transform in stagesObjects)
@@ -197,18 +197,24 @@ public class UIManager : MonoBehaviour
                 if (transform.name == "StageNum")
                 {
                     TextMeshProUGUI testMesh = transform.GetComponent<TextMeshProUGUI>();
-                    testMesh.text = "Stage" + a;
+                    testMesh.text = "Stage" + stageValue;
                 }
                 else if (transform.name == "Button")
                 {
                     Button button = transform.GetComponent<Button>();
-                    Debug.Log(button.transform.parent.name);
-                    button.onClick.AddListener(() => GameManager.Instance.StageCheck(a));
+
+                    int nullNum = stageValue;
+
+                    button.onClick.AddListener(() =>
+                    {
+                        int stageNum = GameManager.Instance.StageCheck(nullNum);
+                        OnStage1(stageNum);
+                    });
 
                     Image images = transform.GetComponent<Image>();
                     //images.color = Color.
-                    if (a == 1)
-                        images.sprite = _images[a - 1];
+                    if (stageValue == 1)
+                        images.sprite = _images[stageValue - 1];
                 }
                 else if (transform.name == "Lock")
                 {
@@ -221,9 +227,9 @@ public class UIManager : MonoBehaviour
                 {
                     Image lookIcons = transform.GetComponent<Image>();
 
-                    if (a == 1)
+                    if (stageValue == 1)
                     {
-                        //images = _images[a - 1];
+                        //images = _images[stageValue - 1];
                     }
 
                     else

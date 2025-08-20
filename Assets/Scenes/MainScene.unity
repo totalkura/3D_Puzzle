@@ -1931,6 +1931,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a58d474c2aa7349b99c8ea3d6aa511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisObjects: {fileID: 7121507674615639374, guid: 5a5e972040c82ba48b4a7144e11e7456, type: 3}
+  stage: {fileID: 0}
+  _images: []
+  _lockIcon: []
+  stages: []
+  maxStage: 0
   StageScene: {fileID: 1488042085}
   MainButton: {fileID: 1488612678}
   BackSpace: {fileID: 1209527387}
@@ -1938,12 +1944,6 @@ MonoBehaviour:
   Option: {fileID: 1491271929}
   animator: {fileID: 1411679863}
   transitionTime: 1.5
-  thisObjects: {fileID: 7121507674615639374, guid: 5a5e972040c82ba48b4a7144e11e7456, type: 3}
-  stage: {fileID: 0}
-  _images: []
-  _lockIcon: []
-  stages: []
-  maxStage: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,31 +2462,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 914423674}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnStageSelector
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 914423674}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnBackSpace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1488612678
 GameObject:
   m_ObjectHideFlags: 0
