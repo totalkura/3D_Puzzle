@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (isDash && CharacterManager.Instance.Player.condition.HasStamina(10 * Time.deltaTime))
         {
-            SoundManager.instance.PlayOther(SoundManager.other.work,true);
+            SoundManager.instance.PlayOther(SoundManager.other.work,1);
             curMoveSpeed = dashSpeed;
         }
         else
@@ -146,10 +146,10 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         if(isPlay)
-            if (context.phase == InputActionPhase.Started && isGrounded() && CharacterManager.Instance.Player.condition.HasStaminaForJump(20))
-            {    
-                _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); //순간적으로힘을주는 임펄스
-            }
+        if (context.phase == InputActionPhase.Started && isGrounded() && CharacterManager.Instance.Player.condition.HasStaminaForJump(20))
+        {    
+          _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); //순간적으로힘을주는 임펄스
+        }
 
     }
 

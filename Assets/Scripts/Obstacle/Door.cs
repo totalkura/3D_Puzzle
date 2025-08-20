@@ -5,6 +5,7 @@ public class Door : MonoBehaviour,IInteractable
     public Animator animator;
     public GameObject gameObjects;
     public float doorTime;
+    private bool doorOpen;
 
     Material material;
 
@@ -17,14 +18,19 @@ public class Door : MonoBehaviour,IInteractable
 
     public void DoorOpen()
     {
-        animator.SetBool("character_nearby", true);
-        SoundManager.instance.PlayOther(SoundManager.other.door);
-
-        if(material != null)
-            material.color = Color.blue;
-        if (doorTime > 0)
+        if (!doorOpen)
         {
-            Invoke("DoorClose", doorTime);
+            doorOpen = true;
+            animator.SetBool("character_nearby", true);
+
+            SoundManager.instance.PlayOther(SoundManager.other.door, 2);
+
+            if (material != null)
+                material.color = Color.blue;
+            if (doorTime > 0)
+            {
+                Invoke("DoorClose", doorTime);
+            }
         }
     }
     public void DoorClose()
@@ -32,6 +38,7 @@ public class Door : MonoBehaviour,IInteractable
         if (material != null)
             material.color = Color.red;
         animator.SetBool("character_nearby", false);
+        doorOpen = false;
     }
     public void Interact()
     {
