@@ -78,12 +78,19 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("InGameScene");
     }
 
+
     public void OnLoadStage()
     {
         GameManager.Instance.StageCheck(GameManager.Instance.userLastStage);
-        animator.SetTrigger("FadeOut");
+        animator.SetTrigger("FadeIn");
+        Invoke("InvokeStage", 1f);
+    }
+
+    public void InvokeStage() 
+    {
         SceneManager.LoadScene("InGameScene");
     }
+
 
     // ========== 뒤로가기 버튼 ===================
 
@@ -91,6 +98,7 @@ public class UIManager : MonoBehaviour
     {
         BackSpace.SetActive(false);
         StageScene.SetActive(false);
+        animator.SetTrigger("FadeOut");
         MainButton.SetActive(true);
 
         if (StageScene != null)
@@ -159,6 +167,7 @@ public class UIManager : MonoBehaviour
         StageScene.SetActive(false);
     }
 
+    
     public void Tests()        
     {
         _images = Resources.LoadAll<Sprite>("Images");
@@ -169,6 +178,7 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < maxStage; i++)
         {
+           
             GameObject tesss = Instantiate(thisObjects, stage.transform);
             tesss.name = "Stage" + (i+1);
             stages.Add(tesss);
@@ -197,10 +207,10 @@ public class UIManager : MonoBehaviour
                     else
                     {
                         Color randomColor = new Color(
-                                 Random.value, // R
-                                 Random.value, // G
-                                 Random.value,  // B
-                                 Random.value
+                                 255, // R
+                                 255, // G
+                                 255,  // B
+                                 255
                                     );
 
                         images.color = randomColor;
