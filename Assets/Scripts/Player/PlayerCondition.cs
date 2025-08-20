@@ -31,6 +31,16 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
         onTakeDamage?.Invoke();
     }
 
+    public bool HasHealth(float healthValue)
+    {
+        if (health.curValue - healthValue < 0)
+        {
+            return false;
+        }
+        health.Subtract(healthValue);
+        return true;
+    }
+
     public bool HasStamina(float staminaValue)
     {
         if (stamina.curValue - staminaValue < 0)
