@@ -4,6 +4,7 @@ public class GetCube : MonoBehaviour, IInteractable
 {
     private bool isHeld = false;
     private Rigidbody rb;
+    private Collider col;
     private Vector3 originScale;
     private float rotationSpeed = 100f;
     private float throwForce = 10f;
@@ -11,6 +12,7 @@ public class GetCube : MonoBehaviour, IInteractable
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
         originScale = transform.localScale;
     }
     void Update()
@@ -27,7 +29,7 @@ public class GetCube : MonoBehaviour, IInteractable
 
             if (Input.GetMouseButtonDown(1))
             {
-               ResetCube();
+                ResetCube();
             }
         }
     }
@@ -61,6 +63,8 @@ public class GetCube : MonoBehaviour, IInteractable
             // 큐브를 플레이어의 시선 방향으로 던집니다.
             rb.AddForce(CharacterManager.Instance.Player.controller.cameraContainer.forward * throwForce, ForceMode.Impulse);
         }
+        rb.isKinematic = false; // 물리 활성화
+        col.isTrigger = false;
 
         // 상태 초기화
         transform.localScale = originScale;
@@ -71,25 +75,33 @@ public class GetCube : MonoBehaviour, IInteractable
     {
         if (!isHeld)
         {
-           PickUpCube();
+            PickUpCube();
         }
         else
         {
             DropCube();
         }
     }
-
-     void PickUpCube() // 큐브 들기
+    void OnTriggerEnter(Collider other)
+    {
+        // 큐브를 들고 있고, 충돌한 오브젝트가 플레이어가 아닐 때
+        if (isHeld && !other.CompareTag("Player"))
+        {
+            // 큐브를 놓습니다.
+            DropCube();
+        }
+    }
+    void PickUpCube() // 큐브 들기
     {
         transform.localScale = originScale;
         rb.useGravity = false;
         // 큐브의 크기를 0.3으로 통일합니다.
-        transform.localScale = Vector3.one * 0.3f;
         ResetCube();
         rb.angularVelocity = Vector3.zero; // 회전 속도 초기화
         if (rb != null)
         {
-            rb.isKinematic = false; // 물리 비활성화
+            rb.isKinematic = true; // 물리 비활성화
+            col.isTrigger = true; // 트리거로 설정
         }
         isHeld = true;
     }
@@ -104,6 +116,7 @@ public class GetCube : MonoBehaviour, IInteractable
         if (rb != null)
         {
             rb.isKinematic = false; // 물리 활성화
+            col.isTrigger = false; // 트리거로 설정
         }
         isHeld = false;
     }
@@ -112,7 +125,7 @@ public class GetCube : MonoBehaviour, IInteractable
     { // 카메라컨테이너를 가져옴
         transform.SetParent(null);
         transform.localScale = originScale;
-        transform.localScale = Vector3.one * 0.3f;
+        transform.localScale = Vector3.one * 0.6f;
         Transform HoldPoint = CharacterManager.Instance.Player.controller.cameraContainer;
 
         transform.SetParent(HoldPoint);
@@ -120,8 +133,5 @@ public class GetCube : MonoBehaviour, IInteractable
         Vector3 pickUpPosition = new Vector3(0f, 0.5f, 1.5f);
         transform.localPosition = pickUpPosition;
         transform.localRotation = Quaternion.identity;
-        rb.velocity = Vector3.zero; // 기존 속도 초기화
-       
-
     }
 }
