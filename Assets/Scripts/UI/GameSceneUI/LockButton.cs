@@ -31,7 +31,7 @@ public class LockButton : MonoBehaviour
 
     public void UpdateLockState()
     {
-        if (stageNum == playerStage) // stageNum: 1~9 <= playerStage: 1~9(laststage) 
+        if (stageNum <= playerStage) // stageNum: 1~9 <= playerStage: 1~9(laststage) 
         {
             // 열림
             Locks.SetActive(false);
