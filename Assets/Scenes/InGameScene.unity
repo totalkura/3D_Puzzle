@@ -27138,7 +27138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8208600729742654086, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
       propertyPath: m_text
-      value: "Stage \n03"
+      value: "Stage \n05"
       objectReference: {fileID: 0}
     - target: {fileID: 8618727212883406739, guid: dc9d2eb42ae194e4787550e75b3daa4b, type: 3}
       propertyPath: m_Name
