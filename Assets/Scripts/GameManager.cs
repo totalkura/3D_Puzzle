@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
 
+            PlayerPrefs.SetInt("CheckScene", 1);
             if (PlayerPrefs.HasKey("LastStage"))
                 userLastStage = PlayerPrefs.GetInt("LastStage");
         }

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MapManager : MonoBehaviour
 {
     private static MapManager instance;
     private GameObject _player;
     [SerializeField] private MapData mapdata;
+
+    public GameObject mainScene;
 
     public int stageNum;
     public int nowStage;
@@ -41,7 +42,17 @@ public class MapManager : MonoBehaviour
         //플레이어 시작위치
         Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
-
+        
+        int checkScene = PlayerPrefs.GetInt("CheckScene");
+        if (PlayerPrefs.HasKey("CheckScene") && checkScene == 0)
+        {
+            CharacterManager.Instance.Player.controller.isPlay = false;
+            Invoke("SceneFalse", 5.0f);
+        }
+        else if (PlayerPrefs.HasKey("CheckScene") && checkScene == 1)
+        {
+            SceneFalse();
+        }
     }
 
 
@@ -49,5 +60,12 @@ public class MapManager : MonoBehaviour
     {
         GameManager.Instance.userSelectStage = nowStage;
         SceneManager.LoadScene("InGameScene");
+    }
+
+    public void SceneFalse()
+    {
+        CharacterManager.Instance.Player.controller.isPlay = true;
+        PlayerPrefs.SetInt("CheckScene", 1);
+        mainScene.SetActive(false);
     }
 }

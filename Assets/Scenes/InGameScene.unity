@@ -8463,6 +8463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23093644217b22b41b8f68bd102141a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainScene: {fileID: 1749355359}
   stageNum: 0
   nowStage: 0
 --- !u!1001 &491162417

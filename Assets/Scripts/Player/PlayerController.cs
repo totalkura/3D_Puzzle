@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnEscape(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed && isPlay)
         {
             
             Debug.Log("Escape Key Pressed");
