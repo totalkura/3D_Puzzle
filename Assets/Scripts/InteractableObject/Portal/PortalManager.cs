@@ -20,11 +20,16 @@ public class PortalManager : MonoBehaviour
     public PortalPair[] portalPairs;
 
     //포탈 담기
-    public GameObject[] portals;
     public GameObject[] cameras;
+    public GameObject[] portals;
 
     public bool setSwitchOne;
     public bool setSwitchTwo;
+
+    public GameObject lastPortal;
+    public Door door;
+
+    private RenderTexture[] renderTextures;
 
     void Awake()
     {
@@ -38,38 +43,26 @@ public class PortalManager : MonoBehaviour
 
     void Start()
     {
-        foreach (var pair in portalPairs)
+        // RenderTexture 생성
+        renderTextures = new RenderTexture[2];
+        for (int i = 0; i < renderTextures.Length; i++)
         {
-            playerCamera = Camera.main.transform;
-            // RenderTexture 생성
-            var rtA = new RenderTexture(Screen.width, Screen.height, 24);
-            var rtB = new RenderTexture(Screen.width, Screen.height, 24);
-
-            pair.cameraA.targetTexture = rtA;
-            pair.cameraMatB.mainTexture = rtA;
-
-            pair.cameraB.targetTexture = rtB;
-            pair.cameraMatA.mainTexture = rtB;
-
-            // Teleporter 연결
-            var teleA = pair.portalA.GetComponentInChildren<PortalTeleporter>();
-            var teleB = pair.portalB.GetComponentInChildren<PortalTeleporter>();
-
-            teleA.reciever = pair.portalB;
-            teleB.reciever = pair.portalA;
+            renderTextures[i] = new RenderTexture(Screen.width, Screen.height, 24);
         }
 
-        foreach (GameObject pair in portals)
+        foreach (GameObject pair in cameras)
             pair.gameObject.SetActive(false);
     }
 
     void LateUpdate()
     {
-        foreach (var pair in portalPairs)
-        {
-            UpdatePortalCamera(pair.portalA, pair.portalB, pair.cameraA);
-            UpdatePortalCamera(pair.portalB, pair.portalA, pair.cameraB);
-        }
+        if (!setSwitchOne && !setSwitchTwo)
+            SelectPortalCamera(0, 2);
+        else if (setSwitchOne && !setSwitchTwo)
+            SelectPortalCamera(1, 2);
+        else if(setSwitchOne && setSwitchTwo)
+            SelectPortalCamera(2, 3);
+
     }
 
     void UpdatePortalCamera(Transform portal, Transform otherPortal, Camera portalCam)
@@ -79,12 +72,65 @@ public class PortalManager : MonoBehaviour
         portalCam.transform.position = portal.position + playerOffsetFromPortal;
 
         //회전 계산
-        float angularDiff = Quaternion.Angle(portal.rotation, otherPortal.rotation);
-        Quaternion portalRotDiff = Quaternion.AngleAxis(angularDiff, Vector3.up);
+        Quaternion portalRotDiff = portal.rotation * Quaternion.Inverse(otherPortal.rotation);
         Vector3 newCamDir = portalRotDiff * playerCamera.forward;
 
         portalCam.transform.rotation = Quaternion.LookRotation(newCamDir, Vector3.up);
 
     }
 
+    private void SelectPortalCamera(int selectNumOne, int selectNumTwo)
+    {
+
+        playerCamera = Camera.main.transform;
+
+        if (portalPairs[selectNumOne].cameraA.targetTexture != null)
+        {
+            portalPairs[selectNumOne].cameraA.targetTexture.Release();
+        }
+
+        portalPairs[selectNumOne].cameraA.targetTexture = renderTextures[0];
+        portalPairs[selectNumOne].cameraMatB.mainTexture = renderTextures[0];
+
+        if (portalPairs[selectNumTwo].cameraB.targetTexture != null)
+        {
+            portalPairs[selectNumTwo].cameraB.targetTexture.Release();
+        }
+
+        portalPairs[selectNumTwo].cameraB.targetTexture = renderTextures[1];
+        portalPairs[selectNumTwo].cameraMatA.mainTexture = renderTextures[1];
+
+        // Teleporter 연결
+        var teleA = portalPairs[selectNumOne].portalA.GetComponentInChildren<PortalTeleporter>();
+        var teleB = portalPairs[selectNumTwo].portalB.GetComponentInChildren<PortalTeleporter>();
+
+        teleA.reciever = portalPairs[selectNumOne].portalB;
+        teleB.reciever = portalPairs[selectNumTwo].portalA;
+
+
+        UpdatePortalCamera(portalPairs[selectNumOne].portalA, portalPairs[selectNumOne].portalB, portalPairs[selectNumOne].cameraA);
+        UpdatePortalCamera(portalPairs[selectNumTwo].portalB, portalPairs[selectNumTwo].portalA, portalPairs[selectNumTwo].cameraB);
+    }
+
+
+
+    public void CheckSwitch(int checkNum)
+    {
+        if (checkNum == 0)
+        {
+            setSwitchOne = !setSwitchOne;
+        }
+        else if (checkNum == 1) 
+        {
+            setSwitchTwo = !setSwitchTwo;
+
+            lastPortal.SetActive(setSwitchTwo);
+            
+
+        }
+
+        if (setSwitchOne && setSwitchTwo) 
+            door.DoorOpen();
+        else door.DoorClose();
+    }
 }

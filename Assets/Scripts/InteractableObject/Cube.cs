@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cube : MonoBehaviour, IInteractable
 {
     public Color color;
+    public int switchCheck;
     public string GetPrompt()
     {
         return "큐브입니다 어디한번 F를 눌러보세요";
@@ -12,6 +13,7 @@ public class Cube : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        PortalManager.Instance.CheckSwitch(switchCheck);
         // Renderer 가져오기
         Renderer rend = GetComponent<Renderer>();
 

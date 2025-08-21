@@ -61,11 +61,16 @@ public class Interaction : MonoBehaviour
             }
             else if(Physics.Raycast(ray, out hit, 7.0f, portals))
             {
-                if (hit.transform.name == "ColliderPlane_A" || hit.transform.name == "ColliderPlane_B")
+                
+                if ((hit.transform.name == "ColliderPlane_A" || hit.transform.name == "ColliderPlane_B") && !PortalManager.Instance.setSwitchOne && !PortalManager.Instance.setSwitchTwo)
                     PortalSettings(0, 1);
-                else if ((hit.transform.name == "ColliderPlane_C" || hit.transform.name == "ColliderPlane_D") && PortalManager.Instance.bluePortal)
+                else if ((hit.transform.name == "ColliderPlane_A" || hit.transform.name == "ColliderPlane_E") && PortalManager.Instance.setSwitchOne && !PortalManager.Instance.setSwitchTwo)
+                    PortalSettings(0, 4);
+                else if ((hit.transform.name == "ColliderPlane_C" || hit.transform.name == "ColliderPlane_D") && PortalManager.Instance.setSwitchOne && !PortalManager.Instance.setSwitchTwo)
                     PortalSettings(2, 3);
-                else if (hit.transform.name == "ColliderPlane_E" || hit.transform.name == "ColliderPlane_F")
+                else if ((hit.transform.name == "ColliderPlane_C" || hit.transform.name == "ColliderPlane_D") && PortalManager.Instance.setSwitchOne && PortalManager.Instance.setSwitchTwo)
+                    PortalSettings(2, 3);
+                else if ((hit.transform.name == "ColliderPlane_E" || hit.transform.name == "ColliderPlane_F") && PortalManager.Instance.setSwitchOne && PortalManager.Instance.setSwitchTwo)
                     PortalSettings(4, 5);
 
             }
@@ -171,14 +176,14 @@ public class Interaction : MonoBehaviour
 
     private void PortalSettings(int firstPortalNum, int secondPortalNum)
     {
-        for (int i = 0; i < PortalManager.Instance.portals.Length; i++)
+        for (int i = 0; i < PortalManager.Instance.cameras.Length; i++)
         {
             if(i == firstPortalNum )
-                PortalManager.Instance.portals[firstPortalNum].SetActive(true);
+                PortalManager.Instance.cameras[firstPortalNum].SetActive(true);
             else if(i == secondPortalNum)
-                PortalManager.Instance.portals[secondPortalNum].SetActive(true);
+                PortalManager.Instance.cameras[secondPortalNum].SetActive(true);
             else
-                PortalManager.Instance.portals[i].SetActive(false);
+                PortalManager.Instance.cameras[i].SetActive(false);
         }
         
         
