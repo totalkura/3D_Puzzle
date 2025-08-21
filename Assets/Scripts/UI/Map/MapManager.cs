@@ -39,8 +39,11 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.instance.StopSounds();
-        SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.StopSounds();
+            SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
+        }
 
         TextMessage();
 

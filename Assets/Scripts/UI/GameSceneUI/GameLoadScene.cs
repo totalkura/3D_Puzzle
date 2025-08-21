@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class GameLoadScene : MonoBehaviour
 {
@@ -11,7 +7,6 @@ public class GameLoadScene : MonoBehaviour
     private void Start()
     {
        animator.SetTrigger("FadeOut");
-       Debug.Log("FadeIn Triggered");
     }
 
     //// 씬 전환 메서드

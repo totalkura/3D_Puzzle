@@ -11,7 +11,7 @@ public class LockButton : MonoBehaviour
 
     private void Start()
     {
-       // UpdateLockState();
+        UpdateLockState();
     }
 
     public void setInit(int stage)

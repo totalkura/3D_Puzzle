@@ -32,8 +32,6 @@ public class MapClickController : MonoBehaviour
             // 스테이지 오브젝트 positon찾기
 
 
-            //float stagePosX = sta
-            float Gap = 8;
 
             //float Gapdistance = scrollViewWidth - stagePosX / Gap;
 
