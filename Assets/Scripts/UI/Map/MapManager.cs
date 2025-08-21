@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MapManager : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class MapManager : MonoBehaviour
         stageNum = GameManager.Instance.userSelectStage;
         mapdata = new MapData();
         _player = Resources.Load<GameObject>("Prefabs/Player");
-
+        _player.name = "Player";
         //플레이어 시작위치
         Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 

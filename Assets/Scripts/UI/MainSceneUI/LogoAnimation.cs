@@ -30,7 +30,7 @@ public class LogoAnimation : MonoBehaviour
         while (true)
         {
            background.transform.Rotate(rotationAxis, RotateSpeed * Time.deltaTime); // 배경 회전
-           yield return null; // 다음 프레임까지 대기
+            yield return null; // 다음 프레임까지 대기
         }
         
     }

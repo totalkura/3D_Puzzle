@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     public GameObject stage;
 
     public Sprite[] _images;
-    public Sprite[] _lockIcon;
     public List<GameObject> stages;
 
     public int maxStage;
@@ -35,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        maxStage = 9;
+        maxStage = 6;
         Tests();
         StageScene.SetActive(false);
     }
@@ -110,15 +109,9 @@ public class UIManager : MonoBehaviour
 
     public void OnBackSpace()
     {
-        BackSpace.SetActive(false);
         StageScene.SetActive(false);
         animator.SetTrigger("FadeOut");
         MainButton.SetActive(true);
-
-        if (StageScene != null)
-        {
-            BackSpace.SetActive(true);
-        }
     }
 
     // ========== 옵션 버튼 ===================
@@ -145,6 +138,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("Check");
         PlayerPrefs.DeleteAll();
         GameManager.Instance.userLastStage = 0;
+        SceneManager.LoadScene("MainScene");
     }
 
 
@@ -170,7 +164,6 @@ public class UIManager : MonoBehaviour
     public void Tests()        
     {
         _images = Resources.LoadAll<Sprite>("Images\\Stage");
-        _lockIcon = Resources.LoadAll<Sprite>("LockIcon");
         thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
         stage = GameObject.Find("Stages");
 
@@ -180,13 +173,11 @@ public class UIManager : MonoBehaviour
         {
             GameObject tesss = Instantiate(thisObjects, stage.transform);
             tesss.name = "Stage" + (i+1);
-            stages.Add(tesss);
-
-            //Icons.Icon // 김영수 수정 2025.08.20 16:00:00
+            tesss.GetComponentInChildren<LockButton>().setInit(i +1);
+            stages.Add(tesss); 
         }
 
         int stageValue = 0;
-
         foreach (GameObject gameObject in stages)
         {
             stageValue++;
@@ -222,21 +213,7 @@ public class UIManager : MonoBehaviour
                     Color createColor = new Color(255, 255, 255, 0 );
                     images.color = createColor;
                 }
-                // 김영수 수정 2025.08.20 16:00:00
-                else if (transform.name == "LockIcon")
-                {
-                    Image lookIcons = transform.GetComponent<Image>();
 
-                    if (stageValue == 1)
-                    {
-                        //images = _images[stageValue - 1];
-                    }
-
-                    else
-                    {
-
-                    }
-                } 
             }
         }
     }
