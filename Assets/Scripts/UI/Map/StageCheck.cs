@@ -13,6 +13,7 @@ public class StageCheck : MonoBehaviour
             if (stageCheck > MapManager.Instance.nowStage)
             {
                 PlayerPrefs.SetInt("LastStage",stageCheck);
+                GameManager.Instance.userLastStage = stageCheck;
                 MapManager.Instance.nowStage = stageCheck;
             }
         }
