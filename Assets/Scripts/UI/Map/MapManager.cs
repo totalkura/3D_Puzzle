@@ -11,7 +11,6 @@ public class MapManager : MonoBehaviour
     [SerializeField] private MapData mapdata;
 
     public GameObject mainScene;
-    public GameObject[] offObjects;
 
     public int stageNum;
     public int nowStage;
@@ -66,8 +65,6 @@ public class MapManager : MonoBehaviour
         {
             SceneFalse();
         }
-
-        GameObjectTurnOff();
     }
 
 
@@ -103,11 +100,4 @@ public class MapManager : MonoBehaviour
         message.Add("(주위를 살펴 본다)");
     }
 
-    private void GameObjectTurnOff()
-    {
-        for (int i = 0; i < offObjects.Length; i++)
-        {
-            offObjects[i].gameObject.SetActive(false);
-        }
-    }
 }

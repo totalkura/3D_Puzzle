@@ -11,6 +11,17 @@ public class PortalTeleporter : MonoBehaviour
     private bool playerIsOverlapping = false;
 
     // Update is called once per frame
+    private void Start()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        if (reciever == null)
+        {
+            Debug.LogError("Reciever portal is not assigned in the PortalTeleporter script.");
+        }
+    }
     void Update()
     {
         if (playerIsOverlapping)

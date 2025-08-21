@@ -10,8 +10,9 @@ public class PortalCamera : MonoBehaviour
     public Transform otherPortal;
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+        playerCamera = Camera.main.transform;
         Vector3 playerOffsetFromPortal = playerCamera.position - otherPortal.position;
         transform.position = portal.position + playerOffsetFromPortal;
 
