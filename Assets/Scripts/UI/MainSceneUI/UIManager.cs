@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        maxStage = 9;
+        maxStage = 6;
         Tests();
         StageScene.SetActive(false);
     }
@@ -68,9 +68,10 @@ public class UIManager : MonoBehaviour
 
     // ========== 메인 메뉴 버튼 ===================
 
-    public void OnNewStageSelector(int sceneNum)
+    public void OnNewStageSelector()
     {
-        GameManager.Instance.StageCheck(sceneNum);
+        GameManager.Instance.StageCheck(0);
+        PlayerPrefs.SetInt("CheckScene", 0);
         animator.SetTrigger("FadeOut");
         SceneManager.LoadScene("InGameScene");
     }
@@ -138,6 +139,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("Check");
         PlayerPrefs.DeleteAll();
         GameManager.Instance.userLastStage = 0;
+        SceneManager.LoadScene("MainScene");
     }
 
 
@@ -177,7 +179,6 @@ public class UIManager : MonoBehaviour
         }
 
         int stageValue = 0;
-
         foreach (GameObject gameObject in stages)
         {
             stageValue++;

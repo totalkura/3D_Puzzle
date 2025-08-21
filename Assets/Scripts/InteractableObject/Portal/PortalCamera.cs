@@ -1,22 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
 public class PortalCamera : MonoBehaviour
 {
-    [SerializeField]private Transform playerCamera;
-    [SerializeField]private Transform myPortal;
-    [SerializeField]private Transform linkedPortal;
 
-    void Update()
+    public Transform playerCamera;
+    public Transform portal;
+    public Transform otherPortal;
+
+    // Update is called once per frame
+    void LateUpdate()
     {
-        Vector3 playerOffsetFromPortal = playerCamera.position - linkedPortal.position;
-        transform.position = myPortal.position + playerOffsetFromPortal;
+        playerCamera = Camera.main.transform;
+        Vector3 playerOffsetFromPortal = playerCamera.position - otherPortal.position;
+        transform.position = portal.position + playerOffsetFromPortal;
 
-        float angularDifferenceBetweenPortals = Quaternion.Angle(myPortal.rotation, linkedPortal.rotation);
+        float angularDifferenceBetweenPortalRotations = Quaternion.Angle(portal.rotation, otherPortal.rotation);
 
-        Quaternion portalRotationDifference = Quaternion.AngleAxis(angularDifferenceBetweenPortals, Vector3.up);
-        Vector3 newCameraDirection = portalRotationDifference * playerCamera.forward;
+        Quaternion portalRotationalDifference = Quaternion.AngleAxis(angularDifferenceBetweenPortalRotations, Vector3.up);
+        Vector3 newCameraDirection = portalRotationalDifference * playerCamera.forward;
         transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
     }
-
 }

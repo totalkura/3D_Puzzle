@@ -48,8 +48,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() // 리지드바디나 물리연산은 픽스드업데이트
     {
-        if(isMove && isPlay)
+        if (isPlay)
+        {
+            
+            if(isMove)
             move();
+        }
+
     }
 
     private void LateUpdate()
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnEscape(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed && PlayerPrefs.GetInt("CheckScene") != 0)
         {
             
             Debug.Log("Escape Key Pressed");

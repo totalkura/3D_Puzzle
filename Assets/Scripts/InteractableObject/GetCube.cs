@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class Cubes : MonoBehaviour,IInteractable
+public class GetCube : MonoBehaviour, IInteractable
 {
-
     public string GetPrompt()
     {
-        return "?";
+        return "큐브 입니다";
     }
 
 
     public void Interact()
     {
-       
+        
     }
+
 }
