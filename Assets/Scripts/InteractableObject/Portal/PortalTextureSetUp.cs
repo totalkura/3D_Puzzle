@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
 
-public class PortalTextureSetUp : MonoBehaviour
+public class PortalTextureSetup : MonoBehaviour
 {
+
     public Camera cameraA;
     public Camera cameraB;
 
     public Material cameraMatA;
     public Material cameraMatB;
+
+    // Use this for initialization
     void Start()
     {
-        if(cameraA.targetTexture != null)
+        if (cameraA.targetTexture != null)
         {
             cameraA.targetTexture.Release();
         }
@@ -27,5 +29,4 @@ public class PortalTextureSetUp : MonoBehaviour
         cameraMatB.mainTexture = cameraB.targetTexture;
     }
 
-   
 }
