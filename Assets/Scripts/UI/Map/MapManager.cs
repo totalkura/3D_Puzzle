@@ -30,15 +30,15 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        //SoundManager.instance.StopSounds();
-        //SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
+        SoundManager.instance.StopSounds();
+        SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
 
         stageNum = GameManager.Instance.userSelectStage;
         mapdata = new MapData();
         _player = Resources.Load<GameObject>("Prefabs/Player");
 
         //플레이어 시작위치
-        //Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
+        Instantiate(_player, mapdata.LoadStagePosition(stageNum), Quaternion.Euler(0, 180, 0));
 
 
     }
