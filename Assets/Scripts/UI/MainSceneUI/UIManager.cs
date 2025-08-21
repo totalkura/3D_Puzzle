@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         maxStage = 6;
-        Tests();
+        StageCopy();
         StageScene.SetActive(false);
     }
 
@@ -162,7 +162,7 @@ public class UIManager : MonoBehaviour
 
 
     
-    public void Tests()        
+    public void StageCopy()        
     {
         _images = Resources.LoadAll<Sprite>("Images\\Stage");
         thisObjects = Resources.Load<GameObject>("Prefabs\\Stage1");
