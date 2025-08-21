@@ -68,9 +68,10 @@ public class UIManager : MonoBehaviour
 
     // ========== 메인 메뉴 버튼 ===================
 
-    public void OnNewStageSelector(int sceneNum)
+    public void OnNewStageSelector()
     {
-        GameManager.Instance.StageCheck(sceneNum);
+        GameManager.Instance.StageCheck(0);
+        PlayerPrefs.SetInt("CheckScene", 0);
         animator.SetTrigger("FadeOut");
         SceneManager.LoadScene("InGameScene");
     }
