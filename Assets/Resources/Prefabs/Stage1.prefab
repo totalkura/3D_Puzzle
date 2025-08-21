@@ -240,6 +240,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 228878073088627853}
+  - {fileID: 1955688374431730800}
   m_Father: {fileID: 2256003663087113095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -298,6 +299,7 @@ GameObject:
   - component: {fileID: 876461579727620355}
   - component: {fileID: 4804531162746116811}
   - component: {fileID: 2471193643757804770}
+  - component: {fileID: 6702858661008760331}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -419,8 +421,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
-  m_EffectDistance: {x: 5, y: -5}
+  m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &6702858661008760331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354182402905033522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2120e10e1a7804d44a43992a727bc9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 2471193643757804770}
 --- !u!1 &7121507674615639374
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2256003663087113095}
   - component: {fileID: 3544728064873740433}
+  - component: {fileID: 4098656664535329345}
   m_Layer: 5
   m_Name: Stage1
   m_TagString: Untagged
@@ -453,7 +469,6 @@ RectTransform:
   - {fileID: 1313864827985462220}
   - {fileID: 164729849581205189}
   - {fileID: 5410254893469586618}
-  - {fileID: 1955688374431730800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -469,6 +484,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7121507674615639374}
   m_CullTransparentMesh: 1
+--- !u!114 &4098656664535329345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121507674615639374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422620eb8ab90a942b1d0c7ec1aebc48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Locks: {fileID: 1847143912919284400}
+  stageNum: 0
 --- !u!1 &8087598479343164305
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,12 +523,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8087598479343164305}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2256003663087113095}
+  m_Father: {fileID: 5410254893469586618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
