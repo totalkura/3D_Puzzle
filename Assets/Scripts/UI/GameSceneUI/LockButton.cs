@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -9,44 +9,38 @@ using static UnityEditorInternal.VersionControl.ListControl;
 
 public class LockButton : MonoBehaviour
 {
-    [Header("Àá±èÈ­¸é")]
+    [Header("ì ê¹€í™”ë©´")]
     public GameObject Locks;
 
-    [Header("½ºÅ×ÀÌÁö ¹øÈ£")]
+    [Header("ìŠ¤í…Œì´ì§€ ë²ˆí˜¸")]
     public int stageNum;
     private int playerStage;
 
     private void Start()
     {
-        // stageNum¿¡ ´ëÇÑ °ªÀÌ ÀÖ¾î¾ß µÇ°í
-        stageNum = GameManager.Instance.StageCheck(GameManager.Instance.userLastStage);
-        // ¿¹½Ã: GameManager¿¡ ÇÃ·¹ÀÌ¾î°¡ Å¬¸®¾îÇÑ ÃÖ´ë ½ºÅ×ÀÌÁö ¹øÈ£ ÀúÀåµÇ¾î ÀÖ´Ù°í °¡Á¤
-        playerStage = PlayerPrefs.GetInt("PlayerStage", UIManager.Instantiate<UIManager>(gameObject.stage.transform));
         UpdateLockState();
     }
 
-    public void UnlockStage(int clearedStage)
+    public void setInit(int stage)
     {
-        if (clearedStage > playerStage)
-        {
-            playerStage = clearedStage;
-            PlayerPrefs.SetInt("PlayerStage", playerStage);
-            PlayerPrefs.Save();
-        }
+        // stageNumì— ëŒ€í•œ ê°’ì´ ìˆì–´ì•¼ ë˜ê³ 
+        stageNum = stage;
+        // ì˜ˆì‹œ: GameManagerì— í”Œë ˆì´ì–´ê°€ í´ë¦¬ì–´í•œ ìµœëŒ€ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ ì €ì¥ë˜ì–´ ìˆë‹¤ê³  ê°€ì •
+        playerStage = GameManager.Instance.StageCheck(GameManager.Instance.userLastStage);
     }
 
     public void UpdateLockState()
     {
-        if (stageNum <= playerStage)
+        if (stageNum == playerStage) // stageNum: 1~9 <= playerStage: 1~9(laststage) 
         {
-            // ¿­¸²
-            Locks.SetActive(true);
+            // ì—´ë¦¼
+            Locks.SetActive(false);
         }
 
         else
         {
-            // Àá±è
-            Locks.SetActive(false);
+            // ì ê¹€
+            Locks.SetActive(true);
         }
     }
 }

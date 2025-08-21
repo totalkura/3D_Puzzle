@@ -172,6 +172,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject tesss = Instantiate(thisObjects, stage.transform);
             tesss.name = "Stage" + (i+1);
+            tesss.GetComponentInChildren<LockButton>().setInit(i +1);
             stages.Add(tesss); 
         }
 
