@@ -293,10 +293,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkRate: 0.05
-  maxCheckDistance: 10
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   curInteractGameObject: {fileID: 0}
   promptText: {fileID: 0}
 --- !u!1 &7739038710432010821
