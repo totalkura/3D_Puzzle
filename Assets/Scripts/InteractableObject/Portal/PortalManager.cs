@@ -19,7 +19,12 @@ public class PortalManager : MonoBehaviour
     public Transform playerCamera;  // 보통 Main Camera
     public PortalPair[] portalPairs;
 
-    private bool switched = false; // 스위치 눌렀는지 여부
+    //포탈 담기
+    public GameObject[] portals;
+    public GameObject[] cameras;
+
+    public bool setSwitchOne;
+    public bool setSwitchTwo;
 
     void Awake()
     {
@@ -53,6 +58,9 @@ public class PortalManager : MonoBehaviour
             teleA.reciever = pair.portalB;
             teleB.reciever = pair.portalA;
         }
+
+        foreach (GameObject pair in portals)
+            pair.gameObject.SetActive(false);
     }
 
     void LateUpdate()

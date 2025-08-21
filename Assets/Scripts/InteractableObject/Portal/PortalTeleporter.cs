@@ -21,7 +21,7 @@ public class PortalTeleporter : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (!playerIsOverlapping) return;
 

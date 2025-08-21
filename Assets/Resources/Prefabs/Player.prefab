@@ -311,6 +311,9 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 0
+  portals:
+    serializedVersion: 2
+    m_Bits: 0
   curInteractGameObject: {fileID: 0}
   promptText: {fileID: 0}
 --- !u!1 &7739038710432010821

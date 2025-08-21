@@ -8,6 +8,7 @@ public class Interaction : MonoBehaviour
     private float lastCheckTime;
     public LayerMask layerMask;
     public LayerMask layer;
+    public LayerMask portals;
 
     private Rigidbody objectRigidbody;
     private Transform getObjects;
@@ -33,6 +34,7 @@ public class Interaction : MonoBehaviour
     {
         
         layer = LayerMask.GetMask("Default");
+        portals = LayerMask.GetMask("Portal");
         _camera = Camera.main;
     }
 
@@ -57,11 +59,22 @@ public class Interaction : MonoBehaviour
                     SetPromtText();
                 }
             }
+            else if(Physics.Raycast(ray, out hit, 7.0f, portals))
+            {
+                if (hit.transform.name == "ColliderPlane_A" || hit.transform.name == "ColliderPlane_B")
+                    PortalSettings(0, 1);
+                else if ((hit.transform.name == "ColliderPlane_C" || hit.transform.name == "ColliderPlane_D") && PortalManager.Instance.bluePortal)
+                    PortalSettings(2, 3);
+                else if (hit.transform.name == "ColliderPlane_E" || hit.transform.name == "ColliderPlane_F")
+                    PortalSettings(4, 5);
+
+            }
             else
             {
                 curInteractGameObject = null;
                 curInteractable = null;
                 promptText.gameObject.SetActive(false);
+                PortalSettings(-1, -1);
             }
         }
     }
@@ -156,4 +169,18 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    private void PortalSettings(int firstPortalNum, int secondPortalNum)
+    {
+        for (int i = 0; i < PortalManager.Instance.portals.Length; i++)
+        {
+            if(i == firstPortalNum )
+                PortalManager.Instance.portals[firstPortalNum].SetActive(true);
+            else if(i == secondPortalNum)
+                PortalManager.Instance.portals[secondPortalNum].SetActive(true);
+            else
+                PortalManager.Instance.portals[i].SetActive(false);
+        }
+        
+        
+    }
 }
