@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
@@ -8,10 +11,14 @@ public class MapManager : MonoBehaviour
     [SerializeField] private MapData mapdata;
 
     public GameObject mainScene;
+    public GameObject[] offObjects;
 
     public int stageNum;
     public int nowStage;
 
+    List<string> message;
+
+    public TextMeshProUGUI textMeshUGUI;
 
     public static MapManager Instance
     {
@@ -30,10 +37,13 @@ public class MapManager : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
         SoundManager.instance.StopSounds();
         SoundManager.instance.PlayBGM(SoundManager.bgm.InGame);
+
+        TextMessage();
 
         stageNum = GameManager.Instance.userSelectStage;
         mapdata = new MapData();
@@ -47,12 +57,17 @@ public class MapManager : MonoBehaviour
         if (PlayerPrefs.HasKey("CheckScene") && checkScene == 0)
         {
             CharacterManager.Instance.Player.controller.isPlay = false;
+
+            StartCoroutine(TextDelay());
+
             Invoke("SceneFalse", 5.0f);
         }
         else if (PlayerPrefs.HasKey("CheckScene") && checkScene == 1)
         {
             SceneFalse();
         }
+
+        GameObjectTurnOff();
     }
 
 
@@ -67,5 +82,32 @@ public class MapManager : MonoBehaviour
         CharacterManager.Instance.Player.controller.isPlay = true;
         PlayerPrefs.SetInt("CheckScene", 1);
         mainScene.SetActive(false);
+    }
+
+    IEnumerator TextDelay()
+    {
+        for (int i = 0; i < message.Count; i++)
+        {
+            textMeshUGUI.text = message[i];
+
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    private void TextMessage()
+    {
+        message = new List<string>();
+        message.Add("아");
+        message.Add("AAAAAAA");
+        message.Add("BBBBBB");
+        message.Add("CCCC");
+    }
+
+    private void GameObjectTurnOff()
+    {
+        for (int i = 0; i < offObjects.Length; i++)
+        {
+            offObjects[i].gameObject.SetActive(false);
+        }
     }
 }
