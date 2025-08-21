@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        maxStage = 6;
+        maxStage = 5;
         StageCopy();
         StageScene.SetActive(false);
     }

@@ -57,11 +57,17 @@ public class PortalManager : MonoBehaviour
     void LateUpdate()
     {
         if (!setSwitchOne && !setSwitchTwo)
-            SelectPortalCamera(0, 2);
+            SelectPortalCamera(0);
         else if (setSwitchOne && !setSwitchTwo)
-            SelectPortalCamera(1, 2);
-        else if(setSwitchOne && setSwitchTwo)
-            SelectPortalCamera(2, 3);
+        {
+            SelectPortalCamera(1);
+            SelectPortalCamera(2);
+        }
+        else if (setSwitchOne && setSwitchTwo)
+        {
+            SelectPortalCamera(2);
+            SelectPortalCamera(3);
+        }
 
     }
 
@@ -79,7 +85,7 @@ public class PortalManager : MonoBehaviour
 
     }
 
-    private void SelectPortalCamera(int selectNumOne, int selectNumTwo)
+    private void SelectPortalCamera(int selectNumOne)
     {
 
         playerCamera = Camera.main.transform;
@@ -89,27 +95,26 @@ public class PortalManager : MonoBehaviour
             portalPairs[selectNumOne].cameraA.targetTexture.Release();
         }
 
-        portalPairs[selectNumOne].cameraA.targetTexture = renderTextures[0];
-        portalPairs[selectNumOne].cameraMatB.mainTexture = renderTextures[0];
-
-        if (portalPairs[selectNumTwo].cameraB.targetTexture != null)
+        if (portalPairs[selectNumOne].cameraB.targetTexture != null)
         {
-            portalPairs[selectNumTwo].cameraB.targetTexture.Release();
+            portalPairs[selectNumOne].cameraB.targetTexture.Release();
         }
 
-        portalPairs[selectNumTwo].cameraB.targetTexture = renderTextures[1];
-        portalPairs[selectNumTwo].cameraMatA.mainTexture = renderTextures[1];
+        portalPairs[selectNumOne].cameraA.targetTexture = renderTextures[0];
+        portalPairs[selectNumOne].cameraB.targetTexture = renderTextures[1];
+        portalPairs[selectNumOne].cameraMatB.mainTexture = renderTextures[0];
+        portalPairs[selectNumOne].cameraMatA.mainTexture = renderTextures[1];
 
         // Teleporter ¿¬°á
         var teleA = portalPairs[selectNumOne].portalA.GetComponentInChildren<PortalTeleporter>();
-        var teleB = portalPairs[selectNumTwo].portalB.GetComponentInChildren<PortalTeleporter>();
+        var teleB = portalPairs[selectNumOne].portalB.GetComponentInChildren<PortalTeleporter>();
 
         teleA.reciever = portalPairs[selectNumOne].portalB;
-        teleB.reciever = portalPairs[selectNumTwo].portalA;
+        teleB.reciever = portalPairs[selectNumOne].portalA;
 
 
         UpdatePortalCamera(portalPairs[selectNumOne].portalA, portalPairs[selectNumOne].portalB, portalPairs[selectNumOne].cameraA);
-        UpdatePortalCamera(portalPairs[selectNumTwo].portalB, portalPairs[selectNumTwo].portalA, portalPairs[selectNumTwo].cameraB);
+        UpdatePortalCamera(portalPairs[selectNumOne].portalB, portalPairs[selectNumOne].portalA, portalPairs[selectNumOne].cameraB);
     }
 
 
