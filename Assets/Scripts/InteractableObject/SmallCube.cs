@@ -11,7 +11,7 @@ public class SmallCube : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        CharacterManager.Instance.Player.transform.localScale = Vector3.one * 0.1f;
+        CharacterManager.Instance.Player.transform.localScale = Vector3.one * 0.3f;
     }
 
    
