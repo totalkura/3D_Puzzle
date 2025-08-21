@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //public interface IDamagable
 //{
@@ -17,12 +18,16 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
     public event Action onTakeDamage;
 
     void Update()
-    {
+    {   
+        if (health.curValue <= 0) Die();
+
       stamina.Add(stamina.passiveValue * Time.deltaTime);
     }
 
     public void Die()
     {
+        GameManager.Instance.StageCheck(MapManager.Instance.nowStage);
+        SceneManager.LoadScene("InGameScene");
     }
 
     public void TakePhysicalDamage(int damage)
@@ -35,6 +40,7 @@ public class PlayerCondition : MonoBehaviour/*, IDamagable*/
     {
         if (health.curValue - healthValue < 0)
         {
+            Die();
             return false;
         }
         health.Subtract(healthValue);

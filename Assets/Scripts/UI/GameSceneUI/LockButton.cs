@@ -1,11 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
-using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditorInternal.VersionControl.ListControl;
+﻿using UnityEngine;
 
 public class LockButton : MonoBehaviour
 {
@@ -18,7 +11,7 @@ public class LockButton : MonoBehaviour
 
     private void Start()
     {
-        UpdateLockState();
+       // UpdateLockState();
     }
 
     public void setInit(int stage)

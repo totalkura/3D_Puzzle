@@ -7,6 +7,7 @@ TagManager:
   - CheckPoint
   - Wall
   - Cube
+  - Plane
   layers:
   - Default
   - TransparentFX
