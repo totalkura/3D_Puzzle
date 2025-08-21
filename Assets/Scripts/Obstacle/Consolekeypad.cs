@@ -56,6 +56,7 @@ public class ConsoleKeypad : MonoBehaviour, IInteractable
             Debug.Log("틀렸습니다");
             currentInput = "";
             displayText.text = currentInput;
+            CharacterManager.Instance.Player.condition.HasHealth(20);
         }
     }
     public void viewCanvus()
