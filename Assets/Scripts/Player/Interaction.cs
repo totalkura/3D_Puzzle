@@ -13,6 +13,7 @@ public class Interaction : MonoBehaviour
     private Transform getObjects;
     private float rayDistance;
     bool checkObject;
+    private float throwForce = 10f;
 
     public GameObject curInteractGameObject;
 
@@ -88,7 +89,13 @@ public class Interaction : MonoBehaviour
         promptText.text = curInteractable.GetPrompt(); //해당오브젝트의 설명(string값)가져옴
     }
 
-
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Performed)
+        {
+            ThrowCube();
+        }
+    }
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
@@ -128,6 +135,24 @@ public class Interaction : MonoBehaviour
             getObjects = hit.transform;
 
             objectRigidbody = getObjects.GetComponent<Rigidbody>();
+        }
+    }
+
+    private void ThrowCube()
+    {
+        if (!checkObject) return;
+        objectRigidbody.useGravity = true;
+
+        if (objectRigidbody != null)
+        {
+            objectRigidbody.isKinematic = false; // 물리 활성화
+            objectRigidbody.velocity = Vector3.zero; // 기존 속도 초기화
+            objectRigidbody.rotation = Quaternion.identity;
+            objectRigidbody.angularVelocity = Vector3.zero; // 회전 속도 초기화
+
+            // 큐브를 플레이어의 시선 방향으로 던집니다.
+            checkObject = false;
+            objectRigidbody.AddForce(CharacterManager.Instance.Player.controller.cameraContainer.forward * throwForce, ForceMode.Impulse);
         }
     }
 
