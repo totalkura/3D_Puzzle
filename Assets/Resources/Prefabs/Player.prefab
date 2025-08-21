@@ -211,7 +211,19 @@ MonoBehaviour:
     m_ActionId: 107c00ca-7943-43f1-8564-e931de1d31ba
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7554865099225143228}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fa5dbd20-0c82-44db-9f1a-6f9e5ba9dad5
     m_ActionName: Player/ShootBluePotal[/Mouse/leftButton]
   - m_PersistentCalls:
