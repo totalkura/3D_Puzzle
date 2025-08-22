@@ -22,7 +22,7 @@
 기능 2 : 레이캐스트를 이용한 큐브 들기 및 큐브 던지기  
 <img width="378" height="315" alt="Image" src="https://github.com/user-attachments/assets/340d97cb-4c0a-468f-86e9-17498b7fdfbe" />  
  
-{Vector3 holdPosition = _camera.transform.position + _camera.transform.forward * rayDistance; // 들어올린 큐브의 위치값을 fixedUpdate에서 계산  }
+'{Vector3 holdPosition = _camera.transform.position + _camera.transform.forward * rayDistance; // 들어올린 큐브의 위치값을 fixedUpdate에서 계산  }
 
 기능 3 : 퍼즐 디자인  
 <img width="2520" height="1524" alt="Image" src="https://github.com/user-attachments/assets/774a0852-7bb7-4ae5-bda0-6fb326fa8830" />
