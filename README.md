@@ -17,15 +17,18 @@
 
 기능 1 : 저장된 user Last Stage를 활용한 잠금 on / off  
 <img width="560" height="312" alt="Image" src="https://github.com/user-attachments/assets/104f39ae-becf-4dcd-900c-70fe42e135de" />  
+클리어상황이 기록되고 저장된 최고스테이지에 따라 잠금 해제 됨
 
 기능 2 : 레이캐스트를 이용한 큐브 들기 및 큐브 던지기  
 <img width="378" height="315" alt="Image" src="https://github.com/user-attachments/assets/340d97cb-4c0a-468f-86e9-17498b7fdfbe" />  
+ 
+Vector3 holdPosition = _camera.transform.position + _camera.transform.forward * rayDistance; // 들어올린 큐브의 위치값을 fixedUpdate에서 계산  
 
 기능 3 : 퍼즐 디자인  
 <img width="2520" height="1524" alt="Image" src="https://github.com/user-attachments/assets/774a0852-7bb7-4ae5-bda0-6fb326fa8830" />
 
 기능 4 : 포탈  
-<img width="316" height="319" alt="Image" src="https://github.com/user-attachments/assets/ae0d8fdc-162c-4304-bcc6-8229ccc3e124" />
+<img width="316" height="319" alt="Image" src="https://github.com/user-attachments/assets/ae0d8fdc-162c-4304-bcc6-8229ccc3e124" />  
 
 기능 5 : Resources를 이용한 동적생성  
 <img width="500" height="273" alt="image" src="https://github.com/user-attachments/assets/4bb717f1-e52c-4ce6-ad4f-8f422ee33000" />  
